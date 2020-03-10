@@ -79,20 +79,28 @@ async def on_reaction_add(reaction, user):
         if verif:
             if reaction.emoji == "0️⃣":
                 await user.add_roles(EkklesiaRole)
+                print(user.name, "entrou no", EkklesiaRole.name)
             elif reaction.emoji == "1️⃣":
                 await user.add_roles(JudahRole)
+                print(user.name, "entrou no", JudahRole.name)
             elif reaction.emoji == "2️⃣":
                 await user.add_roles(MaanaimRole)
+                print(user.name, "entrou no", MaanaimRole.name)
             elif reaction.emoji == "3️⃣":
                 await user.add_roles(AhavaRole)
+                print(user.name, "entrou no", AhavaRole.name)
             elif reaction.emoji == "4️⃣":
                 await user.add_roles(EliteRole)
+                print(user.name, "entrou no", EliteRole.name)
             elif reaction.emoji == "5️⃣":
                 await user.add_roles(TeknongramosRole)
+                print(user.name, "entrou no", TeknongramosRole.name)
             elif reaction.emoji == "6️⃣":
                 await user.add_roles(HovhanessRole)
+                print(user.name, "entrou no", HovhanessRole.name)
             '''elif reaction.emoji == "7️⃣":
-                await user.add_roles(NullRole)'''
+                await user.add_roles(NullRole)
+                print(user.name, NullRole.name)'''
 
 @bot.event
 async def on_reaction_remove(reaction, user):
@@ -102,7 +110,8 @@ async def on_reaction_remove(reaction, user):
             if user.roles[i].id == EkklesiaRole.id:
                 verif = False
         if not verif:
-            await user.remove_roles(EkklesiaRole)       
+            await user.remove_roles(EkklesiaRole)  
+            print(user.name, "saiu do", EkklesiaRole.name)     
     
     if reaction.emoji == "1️⃣":
         verif = True
@@ -110,7 +119,8 @@ async def on_reaction_remove(reaction, user):
             if user.roles[i].id == JudahRole.id:
                 verif = False
         if not verif:
-            await user.remove_roles(JudahRole)      
+            await user.remove_roles(JudahRole) 
+            print(user.name, "saiu do", JudahRole.name)     
 
     if reaction.emoji == "2️⃣":
         verif = True
@@ -119,6 +129,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(MaanaimRole)
+            print(user.name, "saiu do", MaanaimRole.name)
     
     if reaction.emoji == "3️⃣":
         verif = True
@@ -127,6 +138,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(AhavaRole)
+            print(user.name, "saiu do", AhavaRole.name)
     
     if reaction.emoji == "4️⃣":
         verif = True
@@ -135,6 +147,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(EliteRole)
+            print(user.name, "saiu do", EliteRole.name)
     
     if reaction.emoji == "5️⃣":
         verif = True
@@ -143,6 +156,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(TeknongramosRole)
+            print(user.name, "saiu do", TeknongramosRole.name)
     
     if reaction.emoji == "6️⃣":
         verif = True
@@ -151,6 +165,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(HovhanessRole)
+            print(user.name, "saiu do", HovhanessRole.name)
     
     '''if reaction.emoji == "7️⃣":
         verif = True
@@ -158,7 +173,8 @@ async def on_reaction_remove(reaction, user):
             if user.roles[i].id == NullRole.id:
                 verif = False
         if not verif:
-            await user.remove_roles(NullRole)'''
+            await user.remove_roles(NullRole)
+            print(user.name, "saiu do", NullRole.name)'''
     
 
 bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
