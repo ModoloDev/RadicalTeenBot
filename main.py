@@ -47,13 +47,13 @@ async def on_message(message):
             title = "Seleciona a sua Célula:",
             color = 0x22a7f0
         )
-        escolhercelula.add_field(name = "Ekklesia", value = ":zero:", inline = True)
-        escolhercelula.add_field(name = "Hovhaness", value = ":one:", inline = True)
-        escolhercelula.add_field(name = "Teknongramos", value = ":two:", inline = True)
-        escolhercelula.add_field(name = "Judah", value = ":three:", inline = True)
-        escolhercelula.add_field(name = "Maanaim", value = ":four:", inline = True)
-        escolhercelula.add_field(name = "Elite", value = ":five:", inline = True)
-        escolhercelula.add_field(name = "Ahava", value = ":six:", inline = True)
+        escolhercelula.add_field(name = "🦁 Ekklesia", value = ":zero:", inline = True)
+        escolhercelula.add_field(name = "🦅 Hovhaness", value = ":one:", inline = True)
+        escolhercelula.add_field(name = "🌲 Teknongramos", value = ":two:", inline = True)
+        escolhercelula.add_field(name = "🦁 Judah", value = ":three:", inline = True)
+        escolhercelula.add_field(name = "🐺 Maanaim", value = ":four:", inline = True)
+        escolhercelula.add_field(name = "🦅 Elite", value = ":five:", inline = True)
+        escolhercelula.add_field(name = "🧡 Ahava", value = ":six:", inline = True)
         '''escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
         global msg_bot
         msg_bot = await message.channel.send(embed = escolhercelula)
