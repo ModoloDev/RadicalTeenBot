@@ -162,4 +162,4 @@ async def on_reaction_remove(reaction, user):
             await user.remove_roles(NullRole)
     
 
-bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.Xmb0JQ.yzKqYeoKlX93FKGXTAp2ViVw9fI')
+bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
