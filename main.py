@@ -70,7 +70,6 @@ async def on_message(message):
 @bot.event
 async def on_reaction_add(reaction, user):
     celulas = [EkklesiaRole.id, JudahRole.id, MaanaimRole.id, AhavaRole.id, EliteRole.id, TeknongramosRole.id, HovhanessRole.id] #, NullRole.id]
-    #ncelulas = [679059732119683083, 678450377678651392, 678463459385540618, 678449533012803596]
     if msg_bot.id == reaction.message.id and user.name != "RadicalTeenBot":
         verif = True
         for i in range(len(user.roles)):
