@@ -38,9 +38,9 @@ async def on_message(message):
         HovhanessID = 678467646269685761
         HovhanessRole = get(message.guild.roles, id=HovhanessID)
 
-        global NullRole
+        '''global NullRole
         NullID = 686764850416058378
-        NullRole = get(message.guild.roles, id=NullID)
+        NullRole = get(message.guild.roles, id=NullID)'''
 
 
         escolhercelula = discord.Embed(
@@ -54,7 +54,7 @@ async def on_message(message):
         escolhercelula.add_field(name = "Maanaim", value = ":four:", inline = True)
         escolhercelula.add_field(name = "Elite", value = ":five:", inline = True)
         escolhercelula.add_field(name = "Ahava", value = ":six:", inline = True)
-        escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)
+       ''' escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
         global msg_bot
         msg_bot = await message.channel.send(embed = escolhercelula)
 
@@ -65,7 +65,7 @@ async def on_message(message):
         await msg_bot.add_reaction("4️⃣")
         await msg_bot.add_reaction("5️⃣")
         await msg_bot.add_reaction("6️⃣")
-        await msg_bot.add_reaction("7️⃣")
+        '''await msg_bot.add_reaction("7️⃣")'''
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -92,8 +92,8 @@ async def on_reaction_add(reaction, user):
                 await user.add_roles(TeknongramosRole)
             elif reaction.emoji == "6️⃣":
                 await user.add_roles(HovhanessRole)
-            elif reaction.emoji == "7️⃣":
-                await user.add_roles(NullRole)
+            '''elif reaction.emoji == "7️⃣":
+                await user.add_roles(NullRole)'''
 
 @bot.event
 async def on_reaction_remove(reaction, user):
@@ -153,13 +153,13 @@ async def on_reaction_remove(reaction, user):
         if not verif:
             await user.remove_roles(HovhanessRole)
     
-    if reaction.emoji == "7️⃣":
+    '''if reaction.emoji == "7️⃣":
         verif = True
         for i in range(len(user.roles)):
             if user.roles[i].id == NullRole.id:
                 verif = False
         if not verif:
-            await user.remove_roles(NullRole)
+            await user.remove_roles(NullRole)'''
     
 
 bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
