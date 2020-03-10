@@ -54,7 +54,7 @@ async def on_message(message):
         escolhercelula.add_field(name = "Maanaim", value = ":four:", inline = True)
         escolhercelula.add_field(name = "Elite", value = ":five:", inline = True)
         escolhercelula.add_field(name = "Ahava", value = ":six:", inline = True)
-       ''' escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
+        '''escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
         global msg_bot
         msg_bot = await message.channel.send(embed = escolhercelula)
 
@@ -65,12 +65,12 @@ async def on_message(message):
         await msg_bot.add_reaction("4️⃣")
         await msg_bot.add_reaction("5️⃣")
         await msg_bot.add_reaction("6️⃣")
-        '''await msg_bot.add_reaction("7️⃣")'''
+        #await msg_bot.add_reaction("7️⃣")
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    celulas = [EkklesiaRole.id, JudahRole.id, MaanaimRole.id, AhavaRole.id, EliteRole.id, TeknongramosRole.id, HovhanessRole.id, NullRole.id]
-    ncelulas = [679059732119683083, 678450377678651392, 678463459385540618, 678449533012803596]
+    celulas = [EkklesiaRole.id, JudahRole.id, MaanaimRole.id, AhavaRole.id, EliteRole.id, TeknongramosRole.id, HovhanessRole.id] #, NullRole.id]
+    #ncelulas = [679059732119683083, 678450377678651392, 678463459385540618, 678449533012803596]
     if msg_bot.id == reaction.message.id and user.name != "RadicalTeenBot":
         verif = True
         for i in range(len(user.roles)):
