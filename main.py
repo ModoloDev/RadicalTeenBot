@@ -7,6 +7,10 @@ async def on_ready():
     print('bot online')
 
 @bot.event
+async def on_member_join(user):
+    await user.add_roles(678463459385540618)
+
+@bot.event
 async def on_message(message):
     if message.content.lower().startswith("?r"):
         
