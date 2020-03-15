@@ -1,6 +1,21 @@
 import discord
 from discord.utils import get
 
+
+def logentrou(nome, celula):
+    log = discord.Embed(
+        title = f"{nome} entrou em {celula}",
+        color = 0x22a7f0
+    )
+    return log
+
+def logsaiu(nome, celula):
+    log = discord.Embed(
+        title = f"{nome} saiu do {celula}",
+        color = 0x22a7f0
+    )
+    return log
+
 bot = discord.Client()
 @bot.event
 async def on_ready():
@@ -12,7 +27,7 @@ async def on_member_join(user):
 
 @bot.event
 async def on_message(message):
-    if message.content.lower().startswith("?r"):
+    if message.content.lower().startswith("?a"):
         
         global EkklesiaRole
         EkklesiaID = 678462920862072852
@@ -74,12 +89,14 @@ async def on_message(message):
 
         #Log
         global channel
+        global msg_log
         channel = bot.get_channel(686371893007089694)
+        msg_log = channel.send
 
 @bot.event
 async def on_reaction_add(reaction, user):
     celulas = [EkklesiaRole.id, JudahRole.id, MaanaimRole.id, AhavaRole.id, EliteRole.id, TeknongramosRole.id, HovhanessRole.id] #, NullRole.id]
-    if msg_bot.id == reaction.message.id and user.name != "RadicalTeenBot":
+    if msg_bot.id == reaction.message.id and user.name != msg_bot.author.name:
         verif = True
         for i in range(len(user.roles)):
             if user.roles[i].id in celulas:
@@ -88,28 +105,28 @@ async def on_reaction_add(reaction, user):
         if verif:
             if reaction.emoji == "0️⃣":
                 await user.add_roles(EkklesiaRole)
-                await channel.send(user.name, "entrou no", EkklesiaRole.name)
+                await msg_log(embed = logentrou(user.name, EkklesiaRole.name))
             elif reaction.emoji == "1️⃣":
                 await user.add_roles(JudahRole)
-                await channel.sendint(user.name, "entrou no", JudahRole.name)
+                await msg_log(embed = logentrou(user.name, JudahRole.name))
             elif reaction.emoji == "2️⃣":
                 await user.add_roles(MaanaimRole)
-                await channel.send(user.name, "entrou no", MaanaimRole.name)
+                await msg_log(embed = logentrou(user.name, MaanaimRole.name))
             elif reaction.emoji == "3️⃣":
                 await user.add_roles(AhavaRole)
-                await channel.send(user.name, "entrou no", AhavaRole.name)
+                await msg_log(embed = logentrou(user.name, AhavaRole.name))
             elif reaction.emoji == "4️⃣":
                 await user.add_roles(EliteRole)
-                await channel.send(user.name, "entrou no", EliteRole.name)
+                await msg_log(embed = logentrou(user.name, EliteRole.name))
             elif reaction.emoji == "5️⃣":
                 await user.add_roles(TeknongramosRole)
-                await channel.send(user.name, "entrou no", TeknongramosRole.name)
+                await msg_log(embed = logentrou(user.name, TeknongramosRole.name))
             elif reaction.emoji == "6️⃣":
                 await user.add_roles(HovhanessRole)
-                await channel.send(user.name, "entrou no", HovhanessRole.name)
+                await msg_log(embed = logentrou(user.name, HovhanessRole.name))
             '''elif reaction.emoji == "7️⃣":
                 await user.add_roles(NullRole)
-                await channel.send(user.name, NullRole.name)'''
+                await msg_log(embed = logentrou(user.name, NullRole.name))'''
 
 @bot.event
 async def on_reaction_remove(reaction, user):
@@ -120,7 +137,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(EkklesiaRole)  
-            await channel.send(user.name, "saiu do", EkklesiaRole.name)     
+            await msg_log(embed = logsaiu(user.name, EkklesiaRole.name))     
     
     if reaction.emoji == "1️⃣":
         verif = True
@@ -129,7 +146,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(JudahRole) 
-            await channel.send(user.name, "saiu do", JudahRole.name)     
+            await msg_log(embed = logsaiu(user.name, JudahRole.name))  
 
     if reaction.emoji == "2️⃣":
         verif = True
@@ -138,7 +155,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(MaanaimRole)
-            await channel.send(user.name, "saiu do", MaanaimRole.name)
+            await msg_log(embed = logsaiu(user.name, MaanaimRole.name))
     
     if reaction.emoji == "3️⃣":
         verif = True
@@ -147,7 +164,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(AhavaRole)
-            await channel.send(user.name, "saiu do", AhavaRole.name)
+            await msg_log(embed = logsaiu(user.name, AhavaRole.name))
     
     if reaction.emoji == "4️⃣":
         verif = True
@@ -156,7 +173,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(EliteRole)
-            await channel.send(user.name, "saiu do", EliteRole.name)
+            await msg_log(embed = logsaiu(user.name, EliteRole.name))
     
     if reaction.emoji == "5️⃣":
         verif = True
@@ -165,7 +182,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(TeknongramosRole)
-            await channel.send(user.name, "saiu do", TeknongramosRole.name)
+            await msg_log(embed = logsaiu(user.name, TeknongramosRole.name))
     
     if reaction.emoji == "6️⃣":
         verif = True
@@ -174,7 +191,7 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(HovhanessRole)
-            await channel.send(user.name, "saiu do", HovhanessRole.name)
+            await msg_log(embed = logsaiu(user.name, HovhanessRole.name))
     
     '''if reaction.emoji == "7️⃣":
         verif = True
@@ -183,10 +200,10 @@ async def on_reaction_remove(reaction, user):
                 verif = False
         if not verif:
             await user.remove_roles(NullRole)
-            await channel.send(user.name, "saiu do", NullRole.name)'''
+            await msg_log(embed = logsaiu(, NullRole.name))'''
     
 
-bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
-#bot teste: Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs
-#bot normal: Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw
+#bot teste: bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+#bot normal: bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
