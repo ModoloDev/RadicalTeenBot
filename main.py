@@ -27,7 +27,7 @@ async def on_member_join(user):
 
 @bot.event
 async def on_message(message):
-    if message.content.lower().startswith("?a"):
+    if message.content.lower().startswith("?r"):
         
         global EkklesiaRole
         EkklesiaID = 678462920862072852
@@ -203,7 +203,9 @@ async def on_reaction_remove(reaction, user):
             await msg_log(embed = logsaiu(, NullRole.name))'''
     
 
-bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+#bot teste
+# bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
-#bot teste: bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
-#bot normal: bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+
+#bot normal
+bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
