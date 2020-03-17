@@ -11,7 +11,7 @@ def logentrou(nome, celula):
 
 def logsaiu(nome, celula):
     log = discord.Embed(
-        title = f"{nome} saiu do {celula}",
+        title = f"{nome} saiu de {celula}",
         color = 0xFF0000
     )
     return log
@@ -124,7 +124,7 @@ async def on_reaction_add(reaction, user):
                 await user.add_roles(TeknongramosRole)
                 await msg_log(embed = logentrou(user.name, TeknongramosRole.name))
             elif reaction.emoji == "6️⃣":
-                await user.add_roles(HovhanessRole)
+                await user.add_roles(AhavaRole)
                 await msg_log(embed = logentrou(user.name, HovhanessRole.name))
             '''elif reaction.emoji == "7️⃣":
                 await user.add_roles(NullRole)
