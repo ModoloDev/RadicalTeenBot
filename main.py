@@ -1,7 +1,12 @@
 import discord
+import random
 from discord.utils import get
+from discord.ext import commands
+
+bot = commands.Bot(command_prefix = '.')
 
 
+#Funções LOG
 def logentrou(nome, celula):
     log = discord.Embed(
         title = f"{nome} entrou em {celula}",
@@ -16,84 +21,107 @@ def logsaiu(nome, celula):
     )
     return log
 
-bot = discord.Client()
+
+
+#Função Escolher Celula
+def escolhercelula():
+    escolhercelula = discord.Embed(
+        title = "Seleciona a sua Célula:",
+        color = 0xFFFAFA
+    )
+    escolhercelula.add_field(name = "🦁 Ekklesia", value = ":zero:", inline = True)
+    escolhercelula.add_field(name = "🦅 Hovhaness", value = ":one:", inline = True)
+    escolhercelula.add_field(name = "🌲 Teknongramos", value = ":two:", inline = True)
+    escolhercelula.add_field(name = "🦁 Judah", value = ":three:", inline = True)
+    escolhercelula.add_field(name = "🐺 Maanaim", value = ":four:", inline = True)
+    escolhercelula.add_field(name = "🦅 Elite", value = ":five:", inline = True)
+    escolhercelula.add_field(name = "🧡 Ahava", value = ":six:", inline = True)
+    '''escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
+
+    return escolhercelula
+
+
+
 
 
 @bot.event
 async def on_ready():
     print('bot online')
 
+    #Clear
+    global rtchannel
+    rtchannel = bot.get_channel(678453889263075349)
+    await rtchannel.purge(limit=100)
+
+    
+
+
+
+    global EkklesiaRole
+    EkklesiaID = 678462920862072852
+    EkklesiaRole = get(rtchannel.guild.roles, id=EkklesiaID)
+
+    global JudahRole
+    JudahID = 678463157374550017
+    JudahRole = get(rtchannel.guild.roles, id=JudahID)
+
+    global MaanaimRole
+    MaanaimID = 678463077003427841
+    MaanaimRole = get(rtchannel.guild.roles, id=MaanaimID)
+
+    global AhavaRole
+    AhavaID = 678463327793446913
+    AhavaRole = get(rtchannel.guild.roles, id=AhavaID)
+
+    global EliteRole
+    EliteID = 678463392255705109
+    EliteRole = get(rtchannel.guild.roles, id=EliteID)
+
+    global TeknongramosRole
+    TeknongramosID = 678463256460787732
+    TeknongramosRole = get(rtchannel.guild.roles, id=TeknongramosID)
+
+    global HovhanessRole
+    HovhanessID = 678467646269685761
+    HovhanessRole = get(rtchannel.guild.roles, id=HovhanessID)
+
+    '''global NullRole
+    NullID = 686764850416058378
+    NullRole = get(rtchannel.guild.roles, id=NullID)'''
+
+
+
+
+
+
+
+    global msg_bot
+    msg_bot = await rtchannel.send(embed = escolhercelula())
+
+    await msg_bot.add_reaction("0️⃣")
+    await msg_bot.add_reaction("1️⃣")
+    await msg_bot.add_reaction("2️⃣")
+    await msg_bot.add_reaction("3️⃣")
+    await msg_bot.add_reaction("4️⃣")
+    await msg_bot.add_reaction("5️⃣")
+    await msg_bot.add_reaction("6️⃣")
+    #await msg_bot.add_reaction("7️⃣")
+
+
+    #Log
+    global channel
+    global msg_log
+    channel = bot.get_channel(686371893007089694)
+    msg_log = channel.send
+
+
 @bot.event
 async def on_member_join(user):
     await user.add_roles(678463459385540618)
 
-@bot.event
-async def on_message(message):
-    if message.content.lower().startswith("?r"):
-        
-        global EkklesiaRole
-        EkklesiaID = 678462920862072852
-        EkklesiaRole = get(message.guild.roles, id=EkklesiaID)
+#@bot.command(pass_context=True)
+#async def r(message):
 
-        global JudahRole
-        JudahID = 678463157374550017
-        JudahRole = get(message.guild.roles, id=JudahID)
-
-        global MaanaimRole
-        MaanaimID = 678463077003427841
-        MaanaimRole = get(message.guild.roles, id=MaanaimID)
-
-        global AhavaRole
-        AhavaID = 678463327793446913
-        AhavaRole = get(message.guild.roles, id=AhavaID)
-
-        global EliteRole
-        EliteID = 678463392255705109
-        EliteRole = get(message.guild.roles, id=EliteID)
-
-        global TeknongramosRole
-        TeknongramosID = 678463256460787732
-        TeknongramosRole = get(message.guild.roles, id=TeknongramosID)
-
-        global HovhanessRole
-        HovhanessID = 678467646269685761
-        HovhanessRole = get(message.guild.roles, id=HovhanessID)
-
-        '''global NullRole
-        NullID = 686764850416058378
-        NullRole = get(message.guild.roles, id=NullID)'''
-
-
-        escolhercelula = discord.Embed(
-            title = "Seleciona a sua Célula:",
-            color = 0xFFFAFA
-        )
-        escolhercelula.add_field(name = "🦁 Ekklesia", value = ":zero:", inline = True)
-        escolhercelula.add_field(name = "🦅 Hovhaness", value = ":one:", inline = True)
-        escolhercelula.add_field(name = "🌲 Teknongramos", value = ":two:", inline = True)
-        escolhercelula.add_field(name = "🦁 Judah", value = ":three:", inline = True)
-        escolhercelula.add_field(name = "🐺 Maanaim", value = ":four:", inline = True)
-        escolhercelula.add_field(name = "🦅 Elite", value = ":five:", inline = True)
-        escolhercelula.add_field(name = "🧡 Ahava", value = ":six:", inline = True)
-        '''escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
-        global msg_bot
-        msg_bot = await message.channel.send(embed = escolhercelula)
-
-        await msg_bot.add_reaction("0️⃣")
-        await msg_bot.add_reaction("1️⃣")
-        await msg_bot.add_reaction("2️⃣")
-        await msg_bot.add_reaction("3️⃣")
-        await msg_bot.add_reaction("4️⃣")
-        await msg_bot.add_reaction("5️⃣")
-        await msg_bot.add_reaction("6️⃣")
-        #await msg_bot.add_reaction("7️⃣")
-
-
-        #Log
-        global channel
-        global msg_log
-        channel = bot.get_channel(686371893007089694)
-        msg_log = channel.send
 
 @bot.event
 async def on_reaction_add(reaction, user):
