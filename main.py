@@ -109,23 +109,23 @@ async def on_reaction_add(reaction, user):
                 await user.add_roles(EkklesiaRole)
                 await msg_log(embed = logentrou(user.name, EkklesiaRole.name))
             elif reaction.emoji == "1️⃣":
-                await user.add_roles(JudahRole)
-                await msg_log(embed = logentrou(user.name, JudahRole.name))
+                await user.add_roles(HovhanessRole)
+                await msg_log(embed = logentrou(user.name, HovhanessRole.name))
             elif reaction.emoji == "2️⃣":
-                await user.add_roles(MaanaimRole)
-                await msg_log(embed = logentrou(user.name, MaanaimRole.name))
-            elif reaction.emoji == "3️⃣":
-                await user.add_roles(AhavaRole)
-                await msg_log(embed = logentrou(user.name, AhavaRole.name))
-            elif reaction.emoji == "4️⃣":
-                await user.add_roles(EliteRole)
-                await msg_log(embed = logentrou(user.name, EliteRole.name))
-            elif reaction.emoji == "5️⃣":
                 await user.add_roles(TeknongramosRole)
                 await msg_log(embed = logentrou(user.name, TeknongramosRole.name))
+            elif reaction.emoji == "3️⃣":
+                await user.add_roles(JudahRole)
+                await msg_log(embed = logentrou(user.name, JudahRole.name))
+            elif reaction.emoji == "4️⃣":
+                await user.add_roles(MaanaimRole)
+                await msg_log(embed = logentrou(user.name, MaanaimRole.name))
+            elif reaction.emoji == "5️⃣":
+                await user.add_roles(EliteRole)
+                await msg_log(embed = logentrou(user.name, EliteRole.name))
             elif reaction.emoji == "6️⃣":
                 await user.add_roles(AhavaRole)
-                await msg_log(embed = logentrou(user.name, HovhanessRole.name))
+                await msg_log(embed = logentrou(user.name, AhavaRole.name))
             '''elif reaction.emoji == "7️⃣":
                 await user.add_roles(NullRole)
                 await msg_log(embed = logentrou(user.name, NullRole.name))'''
@@ -146,40 +146,13 @@ async def on_reaction_remove(reaction, user):
         elif reaction.emoji == "1️⃣":
             verif = True
             for i in range(len(user.roles)):
-                if user.roles[i].id == JudahRole.id:
+                if user.roles[i].id == HovhanessRole.id:
                     verif = False
             if not verif:
-                await user.remove_roles(JudahRole) 
-                await msg_log(embed = logsaiu(user.name, JudahRole.name))  
+                await user.remove_roles(HovhanessRole)
+                await msg_log(embed = logsaiu(user.name, HovhanessRole.name))
 
         elif reaction.emoji == "2️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == MaanaimRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(MaanaimRole)
-                await msg_log(embed = logsaiu(user.name, MaanaimRole.name))
-        
-        elif reaction.emoji == "3️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == AhavaRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(AhavaRole)
-                await msg_log(embed = logsaiu(user.name, AhavaRole.name))
-        
-        elif reaction.emoji == "4️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == EliteRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(EliteRole)
-                await msg_log(embed = logsaiu(user.name, EliteRole.name))
-        
-        elif reaction.emoji == "5️⃣":
             verif = True
             for i in range(len(user.roles)):
                 if user.roles[i].id == TeknongramosRole.id:
@@ -188,14 +161,41 @@ async def on_reaction_remove(reaction, user):
                 await user.remove_roles(TeknongramosRole)
                 await msg_log(embed = logsaiu(user.name, TeknongramosRole.name))
         
+        elif reaction.emoji == "3️⃣":
+            verif = True
+            for i in range(len(user.roles)):
+                if user.roles[i].id == JudahRole.id:
+                    verif = False
+            if not verif:
+                await user.remove_roles(JudahRole) 
+                await msg_log(embed = logsaiu(user.name, JudahRole.name))
+        
+        elif reaction.emoji == "4️⃣":
+            verif = True
+            for i in range(len(user.roles)):
+                if user.roles[i].id == MaanaimRole.id:
+                    verif = False
+            if not verif:
+                await user.remove_roles(MaanaimRole)
+                await msg_log(embed = logsaiu(user.name, MaanaimRole.name))
+        
+        elif reaction.emoji == "5️⃣":
+            verif = True
+            for i in range(len(user.roles)):
+                if user.roles[i].id == EliteRole.id:
+                    verif = False
+            if not verif:
+                await user.remove_roles(EliteRole)
+                await msg_log(embed = logsaiu(user.name, EliteRole.name))
+        
         elif reaction.emoji == "6️⃣":
             verif = True
             for i in range(len(user.roles)):
-                if user.roles[i].id == HovhanessRole.id:
+                if user.roles[i].id == AhavaRole.id:
                     verif = False
             if not verif:
-                await user.remove_roles(HovhanessRole)
-                await msg_log(embed = logsaiu(user.name, HovhanessRole.name))
+                await user.remove_roles(AhavaRole)
+                await msg_log(embed = logsaiu(user.name, AhavaRole.name))
         
         '''elif reaction.emoji == "7️⃣":
             verif = True
