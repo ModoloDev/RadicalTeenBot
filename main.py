@@ -4,6 +4,7 @@ from discord.utils import get
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix = '.')
+testechannel = bot.get_channel(686763964256092164)
 
 
 #Funções LOG
@@ -41,6 +42,14 @@ def escolhercelula():
     return escolhercelula
 
 
+#Função Anuncio
+def anuncioembed(titulo, mensagem, url):
+    anuncio = discord.Embed(
+        title = f"{titulo}",
+        color = 0xFF0000,
+        description = f"{mensagem}",
+    url=url).set_image(url=url)
+    return anuncio
 
 
 
@@ -48,9 +57,11 @@ def escolhercelula():
 async def on_ready():
     print('bot online')
 
-    #Clear
     global rtchannel
     rtchannel = bot.get_channel(678453889263075349)
+
+
+    #Clear
     await rtchannel.purge(limit=100)
 
     
@@ -91,6 +102,16 @@ async def on_ready():
 
 
 
+    global EveryoneRole
+    EveryoneID = 678449533012803596
+    EveryoneRole = get(rtchannel.guild.roles, id=EveryoneID)
+
+    global RadicalTeenRole
+    RadicalTeenID = 678463459385540618
+    RadicalTeenRole = get(rtchannel.guild.roles, id=RadicalTeenID)
+
+
+
 
 
 
@@ -109,18 +130,15 @@ async def on_ready():
 
 
     #Log
-    global channel
+    global logchannel
     global msg_log
-    channel = bot.get_channel(686371893007089694)
-    msg_log = channel.send
+    logchannel = bot.get_channel(686371893007089694)
+    msg_log = logchannel.send
 
 
 @bot.event
 async def on_member_join(user):
     await user.add_roles(678463459385540618)
-
-#@bot.command(pass_context=True)
-#async def r(message):
 
 
 @bot.event
@@ -232,8 +250,21 @@ async def on_reaction_remove(reaction, user):
                     verif = False
             if not verif:
                 await user.remove_roles(NullRole)
-                await msg_log(embed = logsaiu(, NullRole.name))'''
+                await msg_log(embed = logsaiu(user.name, NullRole.name))'''
     
+
+
+
+@bot.command(pass_context=True)
+async def anuncio(ctx, titulo, mensagem, url):
+    
+    global avisoschannel
+    avisoschannel = bot.get_channel(678458511780347914)
+    msg_anuncio = avisoschannel.send
+    await msg_anuncio(EveryoneRole)
+    await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
+
+
 
 #bot teste
 #bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
