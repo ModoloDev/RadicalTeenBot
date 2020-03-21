@@ -138,7 +138,7 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(user):
-    await user.add_roles(678463459385540618)
+    await user.add_roles(RadicalTeenRole)
 
 
 @bot.event
