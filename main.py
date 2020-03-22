@@ -1,5 +1,6 @@
 import discord
 import random
+import asyncio
 from discord.utils import get
 from discord.ext import commands
 
@@ -136,6 +137,7 @@ async def on_ready():
     msg_log = logchannel.send
 
 
+
 @bot.event
 async def on_member_join(user):
     await user.add_roles(RadicalTeenRole)
@@ -154,27 +156,51 @@ async def on_reaction_add(reaction, user):
             if reaction.emoji == "0️⃣":
                 await user.add_roles(EkklesiaRole)
                 await msg_log(embed = logentrou(user.name, EkklesiaRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, EkklesiaRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             elif reaction.emoji == "1️⃣":
                 await user.add_roles(HovhanessRole)
                 await msg_log(embed = logentrou(user.name, HovhanessRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, HovhanessRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             elif reaction.emoji == "2️⃣":
                 await user.add_roles(TeknongramosRole)
                 await msg_log(embed = logentrou(user.name, TeknongramosRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, TeknongramosRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             elif reaction.emoji == "3️⃣":
                 await user.add_roles(JudahRole)
                 await msg_log(embed = logentrou(user.name, JudahRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, JudahRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             elif reaction.emoji == "4️⃣":
                 await user.add_roles(MaanaimRole)
                 await msg_log(embed = logentrou(user.name, MaanaimRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, MaanaimRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             elif reaction.emoji == "5️⃣":
                 await user.add_roles(EliteRole)
                 await msg_log(embed = logentrou(user.name, EliteRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, EliteRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             elif reaction.emoji == "6️⃣":
                 await user.add_roles(AhavaRole)
                 await msg_log(embed = logentrou(user.name, AhavaRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, AhavaRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
             '''elif reaction.emoji == "7️⃣":
                 await user.add_roles(NullRole)
-                await msg_log(embed = logentrou(user.name, NullRole.name))'''
+                await msg_log(embed = logentrou(user.name, NullRole.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, NullRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()'''
 
 @bot.event
 async def on_reaction_remove(reaction, user):
@@ -187,7 +213,10 @@ async def on_reaction_remove(reaction, user):
                     verif = False
             if not verif:
                 await user.remove_roles(EkklesiaRole)  
-                await msg_log(embed = logsaiu(user.name, EkklesiaRole.name))     
+                await msg_log(embed = logsaiu(user.name, EkklesiaRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, EkklesiaRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
         
         elif reaction.emoji == "1️⃣":
             verif = True
@@ -197,6 +226,9 @@ async def on_reaction_remove(reaction, user):
             if not verif:
                 await user.remove_roles(HovhanessRole)
                 await msg_log(embed = logsaiu(user.name, HovhanessRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, HovhanessRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
 
         elif reaction.emoji == "2️⃣":
             verif = True
@@ -206,6 +238,9 @@ async def on_reaction_remove(reaction, user):
             if not verif:
                 await user.remove_roles(TeknongramosRole)
                 await msg_log(embed = logsaiu(user.name, TeknongramosRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, TeknongramosRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
         
         elif reaction.emoji == "3️⃣":
             verif = True
@@ -215,6 +250,9 @@ async def on_reaction_remove(reaction, user):
             if not verif:
                 await user.remove_roles(JudahRole) 
                 await msg_log(embed = logsaiu(user.name, JudahRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, JudahRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
         
         elif reaction.emoji == "4️⃣":
             verif = True
@@ -224,6 +262,9 @@ async def on_reaction_remove(reaction, user):
             if not verif:
                 await user.remove_roles(MaanaimRole)
                 await msg_log(embed = logsaiu(user.name, MaanaimRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, MaanaimRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
         
         elif reaction.emoji == "5️⃣":
             verif = True
@@ -233,6 +274,9 @@ async def on_reaction_remove(reaction, user):
             if not verif:
                 await user.remove_roles(EliteRole)
                 await msg_log(embed = logsaiu(user.name, EliteRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, EliteRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
         
         elif reaction.emoji == "6️⃣":
             verif = True
@@ -242,6 +286,9 @@ async def on_reaction_remove(reaction, user):
             if not verif:
                 await user.remove_roles(AhavaRole)
                 await msg_log(embed = logsaiu(user.name, AhavaRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, AhavaRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
         
         '''elif reaction.emoji == "7️⃣":
             verif = True
@@ -250,7 +297,10 @@ async def on_reaction_remove(reaction, user):
                     verif = False
             if not verif:
                 await user.remove_roles(NullRole)
-                await msg_log(embed = logsaiu(user.name, NullRole.name))'''
+                await msg_log(embed = logsaiu(user.name, NullRole.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, NullRole.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()'''
     
 
 
