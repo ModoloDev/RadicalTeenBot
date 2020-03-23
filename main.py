@@ -52,6 +52,14 @@ def anuncioembed(titulo, mensagem, url):
     url=url).set_image(url=url)
     return anuncio
 
+#Mensagens erros
+def possuicelula(nome):
+    possuicelula = discord.Embed(
+            title = f"{nome}, você já está em outra célula. Só é possível estar em uma",
+            color = 0xFFFAFA
+    )
+    
+    return possuicelula
 
 
 @bot.event
@@ -63,7 +71,7 @@ async def on_ready():
 
 
     #Clear
-    await rtchannel.purge(limit=100)
+    #await rtchannel.purge(limit=100)
 
     
 
@@ -201,6 +209,13 @@ async def on_reaction_add(reaction, user):
                 msg_temp = await rtchannel.send(embed = logentrou(user.name, NullRole.name))
                 await asyncio.sleep(5)
                 await msg_temp.delete()'''
+        
+        else:
+            msg_temp = await rtchannel.send(embed = possuicelula(user.name))
+            msg_temp
+            await asyncio.sleep(5)
+            await msg_temp.delete()
+
 
 @bot.event
 async def on_reaction_remove(reaction, user):
@@ -317,7 +332,7 @@ async def anuncio(ctx, titulo, mensagem, url):
 
 
 #bot teste
-#bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
 #bot normal
-bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+#bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
