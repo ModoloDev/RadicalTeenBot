@@ -71,7 +71,7 @@ async def on_ready():
 
 
     #Clear
-    #await rtchannel.purge(limit=100)
+    await rtchannel.purge(limit=100)
 
     
 
@@ -332,7 +332,7 @@ async def anuncio(ctx, titulo, mensagem, url):
 
 
 #bot teste
-bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+#bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
 #bot normal
-#bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
