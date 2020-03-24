@@ -170,287 +170,101 @@ async def on_reaction_add(reaction, user):
 
         if verif:
             if reaction.emoji == "0️⃣":
-                await user.add_roles(EkklesiaRole)
-                await msg_log(embed = logentrou(user.name, EkklesiaRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, EkklesiaRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = EkklesiaRole
             elif reaction.emoji == "1️⃣":
-                await user.add_roles(HovhanessRole)
-                await msg_log(embed = logentrou(user.name, HovhanessRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, HovhanessRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = HovhanessRole
             elif reaction.emoji == "2️⃣":
-                await user.add_roles(TeknongramosRole)
-                await msg_log(embed = logentrou(user.name, TeknongramosRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, TeknongramosRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = TeknongramosRole
             elif reaction.emoji == "3️⃣":
-                await user.add_roles(JudahRole)
-                await msg_log(embed = logentrou(user.name, JudahRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, JudahRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = JudahRole
             elif reaction.emoji == "4️⃣":
-                await user.add_roles(MaanaimRole)
-                await msg_log(embed = logentrou(user.name, MaanaimRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, MaanaimRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = MaanaimRole
             elif reaction.emoji == "5️⃣":
-                await user.add_roles(EliteRole)
-                await msg_log(embed = logentrou(user.name, EliteRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, EliteRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = EliteRole
             elif reaction.emoji == "6️⃣":
-                await user.add_roles(AhavaRole)
-                await msg_log(embed = logentrou(user.name, AhavaRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, AhavaRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = AhavaRole
             '''
             elif reaction.emoji == "7️⃣":
-                await user.add_roles(NullRole)
-                await msg_log(embed = logentrou(user.name, NullRole.name))
-                msg_temp = await rtchannel.send(embed = logentrou(user.name, NullRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                Role = NullRole
             '''
+            
+            await user.add_roles(Role)
+            await msg_log(embed = logentrou(user.name, Role.name))
+            msg_temp = await rtchannel.send(embed = logentrou(user.name, Role.name))
+            await asyncio.sleep(5)
+            await msg_temp.delete()
+
         
         else:
+            verif = True
             if reaction.emoji == "0️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == EkklesiaRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-        
+                Role = EkklesiaRole
             elif reaction.emoji == "1️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == HovhanessRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-
+                Role = HovhanessRole
             elif reaction.emoji == "2️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == TeknongramosRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-            
+                Role = TeknongramosRole
             elif reaction.emoji == "3️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == JudahRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-            
+                Role = JudahRole
             elif reaction.emoji == "4️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == MaanaimRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-            
+                Role = MaanaimRole
             elif reaction.emoji == "5️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == EliteRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-            
+                Role = EliteRole
             elif reaction.emoji == "6️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == AhavaRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-            
+                Role = AhavaRole
             '''
             elif reaction.emoji == "7️⃣":
-                verif = True
-                for i in range(len(user.roles)):
-                    if user.roles[i].id == NullRole.id:
-                        verif = False
-                if not verif:
-                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
-                else:
-                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                    msg_temp
-                    await asyncio.sleep(5)
-                    await msg_temp.delete()
+                Role = NullRole
             '''
+
+            for i in range(len(user.roles)):
+                if user.roles[i].id == Role.id:
+                    verif = False
+            if not verif:
+                msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
+                msg_temp
+                await asyncio.sleep(5)
+                await msg_temp.delete()
+            else:
+                msg_temp = await rtchannel.send(embed = possuicelula(user.name))
+                msg_temp
+                await asyncio.sleep(5)
+                await msg_temp.delete()
 
 
 @bot.event
 async def on_reaction_remove(reaction, user):
     if msg_bot.id == reaction.message.id:
 
+        verif = True
         if reaction.emoji == "0️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == EkklesiaRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(EkklesiaRole)  
-                await msg_log(embed = logsaiu(user.name, EkklesiaRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, EkklesiaRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
-        
+            Role = EkklesiaRole
         elif reaction.emoji == "1️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == HovhanessRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(HovhanessRole)
-                await msg_log(embed = logsaiu(user.name, HovhanessRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, HovhanessRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
-
+            Role = HovhanessRole
         elif reaction.emoji == "2️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == TeknongramosRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(TeknongramosRole)
-                await msg_log(embed = logsaiu(user.name, TeknongramosRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, TeknongramosRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
-        
+            Role = TeknongramosRole
         elif reaction.emoji == "3️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == JudahRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(JudahRole) 
-                await msg_log(embed = logsaiu(user.name, JudahRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, JudahRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
-        
+            Role = JudahRole
         elif reaction.emoji == "4️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == MaanaimRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(MaanaimRole)
-                await msg_log(embed = logsaiu(user.name, MaanaimRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, MaanaimRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
-        
+            Role = MaanaimRole
         elif reaction.emoji == "5️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == EliteRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(EliteRole)
-                await msg_log(embed = logsaiu(user.name, EliteRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, EliteRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
-        
+            Role = EliteRole
         elif reaction.emoji == "6️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == AhavaRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(AhavaRole)
-                await msg_log(embed = logsaiu(user.name, AhavaRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, AhavaRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+            Role = AhavaRole
+        '''
+        elif reaction.emoji == "7️⃣":
+            Role = NullRole
+        '''
         
-        '''elif reaction.emoji == "7️⃣":
-            verif = True
-            for i in range(len(user.roles)):
-                if user.roles[i].id == NullRole.id:
-                    verif = False
-            if not verif:
-                await user.remove_roles(NullRole)
-                await msg_log(embed = logsaiu(user.name, NullRole.name))
-                msg_temp = await rtchannel.send(embed = logsaiu(user.name, NullRole.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()'''
+        for i in range(len(user.roles)):
+            if user.roles[i].id == Role.id:
+                verif = False
+        if not verif:
+            await user.remove_roles(Role)  
+            await msg_log(embed = logsaiu(user.name, Role.name))
+            msg_temp = await rtchannel.send(embed = logsaiu(user.name, Role.name))
+            msg_temp
+            await asyncio.sleep(5)
+            await msg_temp.delete()
     
 
 
