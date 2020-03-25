@@ -183,12 +183,11 @@ async def on_ready():
 async def on_member_join(user):
     await user.add_roles(RadicalTeenRole)
 
-    msg_temp = await rtchannel.send(f'<@!{user.id}>')
-    msg_temp2 = await rtchannel.send(embed = bemvindo(user))
-
-
     selecionarcelula = asyncio.create_task(on_ready())
     await selecionarcelula
+
+    msg_temp = await rtchannel.send(f'<@!{user.id}>')
+    msg_temp2 = await rtchannel.send(embed = bemvindo(user))
 
 
     await asyncio.sleep(30)
