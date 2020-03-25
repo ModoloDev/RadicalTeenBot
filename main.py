@@ -6,6 +6,7 @@ from discord.ext import commands
 
 bot = commands.Bot(command_prefix = '.')
 testechannel = bot.get_channel(686763964256092164)
+rtchannel = bot.get_channel(678453889263075349)
 
 
 #Funções LOG
@@ -38,7 +39,7 @@ def escolhercelula():
     escolhercelula.add_field(name = "🐺 Maanaim", value = ":four:", inline = True)
     escolhercelula.add_field(name = "🦅 Elite", value = ":five:", inline = True)
     escolhercelula.add_field(name = "🧡 Ahava", value = ":six:", inline = True)
-    '''escolhercelula.add_field(name = "Null", value = ":seven:", inline = True)'''
+    '''escolhercelula.add_field(name = "Makarias", value = ":seven:", inline = True)'''
 
     return escolhercelula
 
@@ -100,49 +101,38 @@ def sempermissao():
 
 
 
+async def clear(n):
+    rtchannel = bot.get_channel(678453889263075349)
+    await rtchannel.purge(limit = n)
+
+
+
 async def codigo():
-    global rtchannel
     rtchannel = bot.get_channel(678453889263075349)
 
-
-    #Clear
-    await rtchannel.purge(limit=100)
-
-    
-
-
-
     global EkklesiaRole
-    EkklesiaID = 678462920862072852
-    EkklesiaRole = get(rtchannel.guild.roles, id=EkklesiaID)
+    EkklesiaRole = get(rtchannel.guild.roles, id=678462920862072852)
 
     global JudahRole
-    JudahID = 678463157374550017
-    JudahRole = get(rtchannel.guild.roles, id=JudahID)
+    JudahRole = get(rtchannel.guild.roles, id=678463157374550017)
 
     global MaanaimRole
-    MaanaimID = 678463077003427841
-    MaanaimRole = get(rtchannel.guild.roles, id=MaanaimID)
+    MaanaimRole = get(rtchannel.guild.roles, id=678463077003427841)
 
     global AhavaRole
-    AhavaID = 678463327793446913
-    AhavaRole = get(rtchannel.guild.roles, id=AhavaID)
+    AhavaRole = get(rtchannel.guild.roles, id=678463327793446913)
 
     global EliteRole
-    EliteID = 678463392255705109
-    EliteRole = get(rtchannel.guild.roles, id=EliteID)
+    EliteRole = get(rtchannel.guild.roles, id=678463392255705109)
 
     global TeknongramosRole
-    TeknongramosID = 678463256460787732
-    TeknongramosRole = get(rtchannel.guild.roles, id=TeknongramosID)
+    TeknongramosRole = get(rtchannel.guild.roles, id=678463256460787732)
 
     global HovhanessRole
-    HovhanessID = 678467646269685761
-    HovhanessRole = get(rtchannel.guild.roles, id=HovhanessID)
+    HovhanessRole = get(rtchannel.guild.roles, id=678467646269685761)
 
-    '''global NullRole
-    NullID = 686764850416058378
-    NullRole = get(rtchannel.guild.roles, id=NullID)'''
+    '''global MakariasRole
+    MakariasRole = get(rtchannel.guild.roles, id=686764850416058378)'''
 
 
 
@@ -165,11 +155,6 @@ async def codigo():
     global PastoresRole
     PastoresID = 689875778858385467
     PastoresRole = get(rtchannel.guild.roles, id=PastoresID)
-
-
-
-
-
 
 
     global msg_bot
@@ -200,6 +185,8 @@ async def codigo():
 async def on_ready():
     print('Bot on')
 
+    await clear(100)
+
     await codigo()
 
     
@@ -210,11 +197,12 @@ async def on_ready():
 async def on_member_join(user):
     await user.add_roles(RadicalTeenRole)
 
-    await codigo()
+    await clear(100)
 
     msg_temp = await rtchannel.send(f'<@!{user.id}>')
     msg_temp2 = await rtchannel.send(embed = bemvindo(user))
 
+    await codigo()
 
     await asyncio.sleep(30)
     await msg_temp.delete()
@@ -224,6 +212,7 @@ async def on_member_join(user):
 
 @bot.event
 async def on_reaction_add(reaction, user):
+    rtchannel = bot.get_channel(678453889263075349)
     celulas = [EkklesiaRole.id, JudahRole.id, MaanaimRole.id, AhavaRole.id, EliteRole.id, TeknongramosRole.id, HovhanessRole.id] #, NullRole.id]
     if msg_bot.id == reaction.message.id and user.name != msg_bot.author.name:
         verif = True
@@ -231,54 +220,33 @@ async def on_reaction_add(reaction, user):
             if user.roles[i].id in celulas:
                 verif = False
 
+        if reaction.emoji == "0️⃣":
+            Role = EkklesiaRole
+        elif reaction.emoji == "1️⃣":
+            Role = HovhanessRole
+        elif reaction.emoji == "2️⃣":
+            Role = TeknongramosRole
+        elif reaction.emoji == "3️⃣":
+            Role = JudahRole
+        elif reaction.emoji == "4️⃣":
+            Role = MaanaimRole
+        elif reaction.emoji == "5️⃣":
+            Role = EliteRole
+        elif reaction.emoji == "6️⃣":
+            Role = AhavaRole
+        '''
+        elif reaction.emoji == "7️⃣":
+            Role = MakariasRole
+        '''
+
         if verif:
-            if reaction.emoji == "0️⃣":
-                Role = EkklesiaRole
-            elif reaction.emoji == "1️⃣":
-                Role = HovhanessRole
-            elif reaction.emoji == "2️⃣":
-                Role = TeknongramosRole
-            elif reaction.emoji == "3️⃣":
-                Role = JudahRole
-            elif reaction.emoji == "4️⃣":
-                Role = MaanaimRole
-            elif reaction.emoji == "5️⃣":
-                Role = EliteRole
-            elif reaction.emoji == "6️⃣":
-                Role = AhavaRole
-            '''
-            elif reaction.emoji == "7️⃣":
-                Role = NullRole
-            '''
-            
             await user.add_roles(Role)
             await msg_log(embed = logentrou(user.name, Role.name))
             msg_temp = await rtchannel.send(embed = logentrou(user.name, Role.name))
             await asyncio.sleep(5)
-            await msg_temp.delete()
-
-        
+            await msg_temp.delete()        
         else:
             verif = True
-            if reaction.emoji == "0️⃣":
-                Role = EkklesiaRole
-            elif reaction.emoji == "1️⃣":
-                Role = HovhanessRole
-            elif reaction.emoji == "2️⃣":
-                Role = TeknongramosRole
-            elif reaction.emoji == "3️⃣":
-                Role = JudahRole
-            elif reaction.emoji == "4️⃣":
-                Role = MaanaimRole
-            elif reaction.emoji == "5️⃣":
-                Role = EliteRole
-            elif reaction.emoji == "6️⃣":
-                Role = AhavaRole
-            '''
-            elif reaction.emoji == "7️⃣":
-                Role = NullRole
-            '''
-
             for i in range(len(user.roles)):
                 if user.roles[i].id == Role.id:
                     verif = False
@@ -296,6 +264,7 @@ async def on_reaction_add(reaction, user):
 
 @bot.event
 async def on_reaction_remove(reaction, user):
+    rtchannel = bot.get_channel(678453889263075349)
     if msg_bot.id == reaction.message.id:
 
         verif = True
@@ -355,6 +324,7 @@ async def r(ctx):
         if ctx.author.roles[i].id == ADMSRole.id or ctx.author.roles[i].id == LideresRole.id or ctx.author.roles[i].id == PastoresRole:
             verif = False
     if not verif:
+        await clear(100)
         await codigo()
     else:
         await ctx.send(embed = sempermissao())
