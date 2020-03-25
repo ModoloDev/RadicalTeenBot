@@ -93,12 +93,7 @@ def bemvindo(user):
 
 
 
-
-
-@bot.event
-async def on_ready():
-    print('Tudo funcionando')
-
+async def codigo():
     global rtchannel
     rtchannel = bot.get_channel(678453889263075349)
 
@@ -179,12 +174,24 @@ async def on_ready():
 
 
 
+
+
+
+@bot.event
+async def on_ready():
+    print('Bot on')
+
+    await codigo()
+
+    
+
+
+
 @bot.event
 async def on_member_join(user):
     await user.add_roles(RadicalTeenRole)
 
-    selecionarcelula = asyncio.create_task(on_ready())
-    await selecionarcelula
+    await codigo()
 
     msg_temp = await rtchannel.send(f'<@!{user.id}>')
     msg_temp2 = await rtchannel.send(embed = bemvindo(user))
@@ -318,8 +325,7 @@ async def anuncio(ctx, titulo, mensagem, url):
 
 @bot.command(pass_context=True)
 async def r(ctx):
-    selecionarcelula = asyncio.create_task(on_ready())
-    await selecionarcelula
+    await codigo()
 
 @bot.command(pass_context=True)
 async def comandos(ctx):
