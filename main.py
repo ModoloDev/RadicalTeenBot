@@ -89,6 +89,13 @@ def bemvindo(user):
     )
     return bemvindo
 
+def sempermissao():
+    embed = discord.Embed(
+        title = f"Você não tem permissão para usar esse comando.",
+        color = 0xFF0000
+    )
+    return embed
+
 
 
 
@@ -146,6 +153,18 @@ async def codigo():
     global RadicalTeenRole
     RadicalTeenID = 678463459385540618
     RadicalTeenRole = get(rtchannel.guild.roles, id=RadicalTeenID)
+
+    global LideresRole
+    LideresRoleID = 678450377678651392
+    LideresRole = get(rtchannel.guild.roles, id=LideresRoleID)
+
+    global ADMSRole
+    ADMSID = 679059732119683083
+    ADMSRole = get(rtchannel.guild.roles, id=ADMSID)
+
+    global PastoresRole
+    PastoresID = 689875778858385467
+    PastoresRole = get(rtchannel.guild.roles, id=PastoresID)
 
 
 
@@ -315,17 +334,31 @@ async def on_reaction_remove(reaction, user):
 
 @bot.command(pass_context=True)
 async def anuncio(ctx, titulo, mensagem, url):
-    
-    global avisoschannel
-    avisoschannel = bot.get_channel(678458511780347914)
-    msg_anuncio = avisoschannel.send
-    await msg_anuncio(EveryoneRole)
-    await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
+    verif = True
+    for i in range(len(ctx.author.roles)):
+        if ctx.author.roles[i].id == ADMSRole.id or ctx.author.roles[i].id == LideresRole.id or ctx.author.roles[i].id == PastoresRole:
+            verif = False
+    if not verif:   
+        global avisoschannel
+        avisoschannel = bot.get_channel(678458511780347914)
+        msg_anuncio = avisoschannel.send
+        await msg_anuncio(EveryoneRole)
+        await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
+    else:
+        await ctx.send(embed = sempermissao())
 
 
 @bot.command(pass_context=True)
 async def r(ctx):
-    await codigo()
+    verif = True
+    for i in range(len(ctx.author.roles)):
+        if ctx.author.roles[i].id == ADMSRole.id or ctx.author.roles[i].id == LideresRole.id or ctx.author.roles[i].id == PastoresRole:
+            verif = False
+    if not verif:
+        await codigo()
+    else:
+        await ctx.send(embed = sempermissao())
+
 
 @bot.command(pass_context=True)
 async def comandos(ctx):
