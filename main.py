@@ -42,8 +42,18 @@ def escolhercelula():
 
     return escolhercelula
 
+#Comandos
+def help():
+    help = discord.Embed(
+        title = f"Comandos",
+        color = 0xFFFAFA
+    )
 
-#Função Anuncio
+    help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio "Titulo" "Mensagem" Url', inline = False)
+    help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
+        
+    return help
+
 def anuncioembed(titulo, mensagem, url):
     anuncio = discord.Embed(
         title = f"{titulo}",
@@ -52,7 +62,10 @@ def anuncioembed(titulo, mensagem, url):
     url=url).set_image(url=url)
     return anuncio
 
-#Mensagens erros
+
+
+
+#Mensagens e erros
 def possuicelula(nome):
     possuicelula = discord.Embed(
             title = f"{nome}, você já está em outra célula. Só é possível estar em uma de cada vez.",
@@ -69,10 +82,22 @@ def mesmacelula(nome):
 
     return mesmacelula
 
+def bemvindo(user):
+    bemvindo = discord.Embed(
+        title = f"{user.name}, Bem-Vindo ao discord do Radical Teen. Selecione a sua célula",
+        color = 0xFFFAFA
+    )
+    return bemvindo
+
+
+
+
+
+
 
 @bot.event
 async def on_ready():
-    print('bot online')
+    print('Tudo funcionando')
 
     global rtchannel
     rtchannel = bot.get_channel(678453889263075349)
@@ -157,6 +182,19 @@ async def on_ready():
 @bot.event
 async def on_member_join(user):
     await user.add_roles(RadicalTeenRole)
+
+    msg_temp = await rtchannel.send(f'<@!{user.id}>')
+    msg_temp2 = await rtchannel.send(embed = bemvindo(user))
+
+
+    selecionarcelula = asyncio.create_task(on_ready())
+    await selecionarcelula
+
+
+    await asyncio.sleep(30)
+    await msg_temp.delete()
+    await msg_temp2.delete()
+    
 
 
 @bot.event
@@ -278,6 +316,15 @@ async def anuncio(ctx, titulo, mensagem, url):
     await msg_anuncio(EveryoneRole)
     await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
 
+
+@bot.command(pass_context=True)
+async def r(ctx):
+    selecionarcelula = asyncio.create_task(on_ready())
+    await selecionarcelula
+
+@bot.command(pass_context=True)
+async def comandos(ctx):
+    await ctx.send(embed = help())
 
 
 #bot teste
