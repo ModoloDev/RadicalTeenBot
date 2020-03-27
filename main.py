@@ -52,6 +52,7 @@ def help():
 
     help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio "Titulo" "Mensagem" Url', inline = False)
     help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
+    help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute on/off', inline = False)
         
     return help
 
@@ -104,7 +105,12 @@ def zoom(user):
     )
     return embed
 
-
+def usoincorreto():
+    embed = discord.Embed(
+        title=f"Comando usado de forma incorreta. Para mais informações tente .comandos",
+        color = 0xFF0000
+    )
+    return embed
 
 
 
@@ -216,6 +222,7 @@ async def on_member_join(user):
     await msg_temp2.delete()
 
 
+
 @bot.event
 async def on_message(message):
     message_content = message.content.strip().lower()
@@ -223,9 +230,13 @@ async def on_message(message):
         user = message.author.name
         channel = bot.get_channel(message.channel.id)
         await message.delete()
-        await channel.send(embed = zoom(user))
-         
-    
+        msg_temp = await channel.send(embed = zoom(user))
+        await asyncio.sleep(15)
+        await msg_temp.delete() 
+      
+
+
+    await bot.process_commands(message) #ISSO FAZ OS COMANDOS FUNCIONAREM
 
 
 @bot.event
@@ -321,9 +332,10 @@ async def on_reaction_remove(reaction, user):
 
 @bot.command(pass_context=True)
 async def anuncio(ctx, titulo, mensagem, url):
+    adms = [ADMSRole.id, LideresRole.id, PastoresRole.id]
     verif = True
     for i in range(len(ctx.author.roles)):
-        if ctx.author.roles[i].id == ADMSRole.id or ctx.author.roles[i].id == LideresRole.id or ctx.author.roles[i].id == PastoresRole:
+        if ctx.author.roles[i].id in adms:
             verif = False
     if not verif:   
         global avisoschannel
@@ -337,9 +349,10 @@ async def anuncio(ctx, titulo, mensagem, url):
 
 @bot.command(pass_context=True)
 async def r(ctx):
+    adms = [ADMSRole.id, LideresRole.id, PastoresRole.id]
     verif = True
     for i in range(len(ctx.author.roles)):
-        if ctx.author.roles[i].id == ADMSRole.id or ctx.author.roles[i].id == LideresRole.id or ctx.author.roles[i].id == PastoresRole:
+        if ctx.author.roles[i].id in adms:
             verif = False
     if not verif:
         await clear(100)
@@ -347,6 +360,30 @@ async def r(ctx):
     else:
         await ctx.send(embed = sempermissao())
 
+@bot.command(pass_context=True)
+async def mute(ctx, onoff):
+    adms = [ADMSRole.id, LideresRole.id, PastoresRole.id]
+    verif = True
+    for i in range(len(ctx.author.roles)):
+        if ctx.author.roles[i].id in adms:
+            verif = False
+    if not verif:
+        voicechannel = bot.get_channel(ctx.author.voice.channel.id)
+        if onoff == "on":
+            for user in voicechannel.members:
+                verif = True
+                for i in range(len(user.roles)):
+                    if user.roles[i].id in adms:
+                        verif = False
+                if verif:
+                    await user.edit(mute=True)    
+        elif onoff == "off":
+            for user in voicechannel.members:
+                await user.edit(mute=False)
+        else:
+            await ctx.send(embed = usoincorreto())
+    else:
+        await ctx.send(embed = sempermissao())
 
 @bot.command(pass_context=True)
 async def comandos(ctx):
@@ -354,7 +391,7 @@ async def comandos(ctx):
 
 
 #bot teste
-#bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
 #bot normal
-bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+#bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
