@@ -97,6 +97,13 @@ def sempermissao():
     )
     return embed
 
+def zoom(user):
+    embed = discord.Embed(
+        title = f"Na Na Ni Na Não, {user}!\nEspalhe o discord para a galera:\nhttps://discord.gg/AR3mQbQ",
+        color = 0xFF0000
+    )
+    return embed
+
 
 
 
@@ -207,6 +214,17 @@ async def on_member_join(user):
     await asyncio.sleep(30)
     await msg_temp.delete()
     await msg_temp2.delete()
+
+
+@bot.event
+async def on_message(message):
+    message_content = message.content.strip().lower()
+    if "zoom" in message_content:
+        user = message.author.name
+        channel = bot.get_channel(message.channel.id)
+        await message.delete()
+        await channel.send(embed = zoom(user))
+         
     
 
 
