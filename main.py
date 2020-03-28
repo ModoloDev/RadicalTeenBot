@@ -82,8 +82,9 @@ async def codigo():
 
 @bot.event
 async def on_ready():
-    rtchannel = bot.get_channel(678453889263075349)
     print('Bot on')
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game("Radical Teen ✝"))
+    rtchannel = bot.get_channel(678453889263075349)
 
     await rtchannel.purge(limit = 100)
 
@@ -106,6 +107,16 @@ async def on_member_join(user):
     await asyncio.sleep(30)
     await msg_temp.delete()
     await msg_temp2.delete()
+
+
+@bot.event
+async def on_member_update(before, after):
+    botteste = 688243571865682010
+    if after.id == botteste:
+        if str(after.status) == "offline":
+            rtchannel = bot.get_channel(678453889263075349)
+            await rtchannel.purge(limit = 100)
+            await codigo()
 
 
 @bot.event
@@ -215,6 +226,8 @@ async def on_reaction_remove(reaction, user):
 
 
 
+
+
 @bot.command(pass_context=True)
 async def anuncio(ctx, titulo, mensagem, url):
     adms = [ADMSRole.id, LideresRole.id, PastoresRole.id]
@@ -240,6 +253,7 @@ async def r(ctx):
         if ctx.author.roles[i].id in adms:
             verif = False
     if not verif:
+        rtchannel = bot.get_channel(678453889263075349)
         await rtchannel.purge(limit = 100)
         await codigo()
     else:
@@ -261,10 +275,16 @@ async def mute(ctx, onoff):
                     if user.roles[i].id in adms:
                         verif = False
                 if verif:
-                    await user.edit(mute=True)    
+                    await user.edit(mute=True)  
+            msg_temp = await ctx.send(embed = muteon(voicechannel))
+            await asyncio.sleep(5)
+            await msg_temp.delete()  
         elif onoff == "off":
             for user in voicechannel.members:
-                await user.edit(mute=False)
+                await user.edit(mute=False) 
+            msg_temp = await ctx.send(embed = muteoff(voicechannel))
+            await asyncio.sleep(5)
+            await msg_temp.delete()
         else:
             await ctx.send(embed = usoincorreto())
     else:

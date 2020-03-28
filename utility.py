@@ -102,3 +102,17 @@ def usoincorreto():
         color = 0xFF0000
     )
     return embed
+
+def muteon(channel):
+    embed = discord.Embed(
+        title=f"Todos os usuários do canal |{channel}| foram MUTADOS",
+        color = 0xFFFAFA
+    )
+    return embed
+
+def muteoff(channel):
+    embed = discord.Embed(
+        title=f"Todos os usuários do canal |{channel}| foram DESMUTADOS",
+        color = 0xFFFAFA
+    )
+    return embed
