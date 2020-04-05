@@ -95,18 +95,21 @@ async def on_ready():
 @bot.event
 async def on_member_join(user):
     rtchannel = bot.get_channel(678453889263075349)
-    await rtchannel.purge(limit = 100)
 
-    await user.add_roles(get(rtchannel.guild.roles, id=678463459385540618))
+    if str(user.bot) == "False":
+        await rtchannel.purge(limit = 100)
 
-    msg_temp = await rtchannel.send(f'<@!{user.id}>')
-    msg_temp2 = await rtchannel.send(embed = bemvindo(user))
+        await user.add_roles(get(rtchannel.guild.roles, id=678463459385540618))
 
-    await codigo()
+        msg_temp = await rtchannel.send(f'<@!{user.id}>')
+        msg_temp2 = await rtchannel.send(embed = bemvindo(user))
 
-    await asyncio.sleep(30)
-    await msg_temp.delete()
-    await msg_temp2.delete()
+        await codigo()
+
+        await asyncio.sleep(30)
+        await msg_temp.delete()
+        await msg_temp2.delete()
+
 
 
 @bot.event
@@ -289,6 +292,31 @@ async def mute(ctx, onoff):
             await ctx.send(embed = usoincorreto())
     else:
         await ctx.send(embed = sempermissao())
+
+@bot.command(pass_context=True)
+async def move(ctx, de=None, para=None):
+    adms = [ADMSRole.id, LideresRole.id, PastoresRole.id]
+    verif = True
+    for i in range(len(ctx.author.roles)):
+        if ctx.author.roles[i].id in adms:
+            verif = False
+    if not verif:
+        if de == None or para == None:
+            await ctx.send(embed = mover(ctx))
+        else:
+            channelde = discord.utils.find(lambda x: x.position == int(de), ctx.guild.voice_channels)
+            channelgetde = bot.get_channel(channelde.id)
+
+            channelpara = discord.utils.find(lambda x: x.position == int(para), ctx.guild.voice_channels)
+            channelgetpara = bot.get_channel(channelpara.id)
+
+            for user in channelgetde.members:
+                await user.edit(voice_channel=channelgetpara)
+    else:
+        await ctx.send(embed = sempermissao())
+
+
+
 
 @bot.command(pass_context=True)
 async def comandos(ctx):

@@ -44,6 +44,7 @@ def help():
     help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio "Titulo" "Mensagem" Url', inline = False)
     help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
     help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute on/off', inline = False)
+    help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro. Usando apenas .move você vê a posição dos canais.\nEx: .move "de canal(posição)" "para canal(posição)"', inline = False)
         
     return help
 
@@ -113,6 +114,17 @@ def muteon(channel):
 def muteoff(channel):
     embed = discord.Embed(
         title=f"Todos os usuários do canal |{channel}| foram DESMUTADOS",
+        color = 0xFFFAFA
+    )
+    return embed
+
+def mover(ctx):
+    msg_final = ''
+    for channel in ctx.guild.voice_channels:
+        msg_final += f'\n{channel.position}° >>> {channel.name}'
+    embed = discord.Embed(
+        title = f'\tCanais de Voz',
+        description = f'{msg_final}',
         color = 0xFFFAFA
     )
     return embed
