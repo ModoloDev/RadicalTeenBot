@@ -1,4 +1,7 @@
 import discord
+from discord.utils import get
+
+
 
 #Funções LOG
 def logentrou(nome, celula):
@@ -45,6 +48,7 @@ def help():
     help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
     help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute on/off', inline = False)
     help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro. Usando apenas .move você vê a posição dos canais.\nEx: .move "de canal(posição)" "para canal(posição)"', inline = False)
+    help.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero)', inline = False)
         
     return help
 
@@ -56,6 +60,48 @@ def anuncioembed(titulo, mensagem, url):
     url=url).set_image(url=url)
     return anuncio
 
+def muteon(channel):
+    embed = discord.Embed(
+        title=f"Todos os usuários do canal |{channel}| foram MUTADOS",
+        color = 0xFFFAFA
+    )
+    return embed
+
+def muteoff(channel):
+    embed = discord.Embed(
+        title=f"Todos os usuários do canal |{channel}| foram DESMUTADOS",
+        color = 0xFFFAFA
+    )
+    return embed
+
+def mover(ctx):
+    msg_final = ''
+    for channel in ctx.guild.voice_channels:
+        msg_final += f'\n{channel.position}° >>> {channel.name}'
+    embed = discord.Embed(
+        title = f'\tCanais de Voz',
+        description = f'{msg_final}',
+        color = 0xFFFAFA
+    )
+    return embed
+
+def msgclear(n):
+    if n == 0:
+        embed = discord.Embed(
+            title = f"🧹 Nenhuma mensagem foi apagada",
+            color = 0xFFFAFA
+        )
+    elif n == 1:
+        embed = discord.Embed(
+            title = f"🧹 Uma mensagem foi apagada.",
+            color = 0xFFFAFA
+        )
+    else:
+        embed = discord.Embed(
+            title = f"🧹 {n} mensagens foram apagadas.",
+            color = 0xFFFAFA
+        )
+    return embed
 
 
 
@@ -104,27 +150,9 @@ def usoincorreto():
     )
     return embed
 
-def muteon(channel):
+def botreiniciando():
     embed = discord.Embed(
-        title=f"Todos os usuários do canal |{channel}| foram MUTADOS",
-        color = 0xFFFAFA
-    )
-    return embed
-
-def muteoff(channel):
-    embed = discord.Embed(
-        title=f"Todos os usuários do canal |{channel}| foram DESMUTADOS",
-        color = 0xFFFAFA
-    )
-    return embed
-
-def mover(ctx):
-    msg_final = ''
-    for channel in ctx.guild.voice_channels:
-        msg_final += f'\n{channel.position}° >>> {channel.name}'
-    embed = discord.Embed(
-        title = f'\tCanais de Voz',
-        description = f'{msg_final}',
-        color = 0xFFFAFA
+        title=f"O bot está reiniciando, espere um momento.",
+        color = 0xFFFF00
     )
     return embed
