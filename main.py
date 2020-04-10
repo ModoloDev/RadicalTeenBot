@@ -1,6 +1,8 @@
 import discord
 import random
 import asyncio
+from time import strftime, localtime, time
+from datetime import datetime
 from discord.utils import get
 from discord.ext import commands
 from utility import *
@@ -109,7 +111,7 @@ async def check(ctx, adms):
 
 @bot.event
 async def on_ready():
-    print('Bot on')
+    print(strftime("%A, %d/%m/%Y %H:%M:%S", localtime(time()-10800)),'\n Iniciando Bot...')
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("Radical Teen ✝"))
     rtchannel = bot.get_channel(678453889263075349)
 
@@ -140,7 +142,7 @@ async def on_member_join(user):
         await msg_temp2.delete()
 
 
-
+'''
 @bot.event
 async def on_member_update(before, after):
     botteste = 688243571865682010
@@ -152,6 +154,7 @@ async def on_member_update(before, after):
             await asyncio.sleep(5)
             await msg_temp.delete()
             await codigo(rtchannel)
+'''
 
 
 @bot.event
@@ -164,6 +167,12 @@ async def on_message(message):
         msg_temp = await channel.send(embed = zoom(user))
         await asyncio.sleep(15)
         await msg_temp.delete() 
+
+    if "discord" in message_content:
+        channel = bot.get_channel(message.channel.id)
+        await asyncio.sleep(15)
+        await channel.send(embed = discor1())
+
       
 
 
@@ -189,12 +198,10 @@ async def on_reaction_add(reaction, user):
             x = discord.utils.find(lambda x: x.id == Role.id, user.roles)
             if x != None:
                 msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
-                msg_temp
                 await asyncio.sleep(5)
                 await msg_temp.delete()
             else:
                 msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                msg_temp
                 await asyncio.sleep(5)
                 await msg_temp.delete()
 
@@ -211,7 +218,6 @@ async def on_reaction_remove(reaction, user):
             await user.remove_roles(Role)  
             await msg_log(embed = logsaiu(user.name, Role.name))
             msg_temp = await rtchannel.send(embed = logsaiu(user.name, Role.name))
-            msg_temp
             await asyncio.sleep(5)
             await msg_temp.delete()
     
@@ -221,10 +227,10 @@ async def on_reaction_remove(reaction, user):
 @bot.command(pass_context=True)
 async def anuncio(ctx, titulo, mensagem, url):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
-    x = check(ctx, adms)
+    x = await check(ctx, adms)
     if x != None:  
         global avisoschannel
-        avisoschannel = bot.get_channel(678458511780347914)
+        avisoschannel = bot.get_channel(697951710764859392)
         msg_anuncio = avisoschannel.send
         await msg_anuncio(get(rtchannel.guild.roles, id=678449533012803596))
         await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
@@ -235,7 +241,7 @@ async def anuncio(ctx, titulo, mensagem, url):
 @bot.command(pass_context=True)
 async def r(ctx):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
-    x = check(ctx, adms)
+    x = await check(ctx, adms)
     if x != None:
         rtchannel = bot.get_channel(678453889263075349)
         await rtchannel.purge(limit = 100)
@@ -247,11 +253,12 @@ async def r(ctx):
         await ctx.send(embed = sempermissao())
 
 @bot.command(pass_context=True)
-async def mute(ctx, onoff):
+async def mute(ctx, channel, onoff=None):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
-    x = check(ctx, adms)
+    x = await check(ctx, adms)
     if x != None:
-        voicechannel = bot.get_channel(ctx.author.voice.channel.id)
+        channel = discord.utils.find(lambda x: x.position == int(channel), ctx.guild.voice_channels)
+        voicechannel = bot.get_channel(channel.id)
         if onoff == "on":
             for user in voicechannel.members:
                 verif = True
@@ -277,10 +284,10 @@ async def mute(ctx, onoff):
 @bot.command(pass_context=True)
 async def move(ctx, de=None, para=None):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
-    x = check(ctx, adms)
+    x = await check(ctx, adms)
     if x != None:
         if de == None or para == None:
-            await ctx.send(embed = mover(ctx))
+            await ctx.send(embed = usoincorreto())
         else:
             channelde = discord.utils.find(lambda x: x.position == int(de), ctx.guild.voice_channels)
             channelgetde = bot.get_channel(channelde.id)
@@ -297,7 +304,7 @@ async def move(ctx, de=None, para=None):
 @bot.command(pass_context=True)
 async def clear(ctx, n):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
-    x = check(ctx, adms)
+    x = await check(ctx, adms)
     if x != None:
         await ctx.channel.purge(limit = int(n) + 1)
         msg_temp = await ctx.send(embed = msgclear(int(n)))
@@ -305,6 +312,15 @@ async def clear(ctx, n):
         await msg_temp.delete()
     else:
         await ctx.send(embed = sempermissao())
+
+@bot.command(pass_context=True)
+async def disc(ctx):
+    await ctx.send(embed = discor())
+
+@bot.command(pass_context=True)
+async def canais(ctx):
+    await ctx.send(embed = mover(ctx))
+
 
 '''
 @bot.command(pass_context=True)
@@ -323,7 +339,7 @@ async def comandos(ctx):
 
 
 #bot teste
-#bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
 #bot normal
-bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+#bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')

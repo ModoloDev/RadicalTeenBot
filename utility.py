@@ -44,11 +44,13 @@ def help():
         color = 0xFFFAFA
     )
 
-    help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio "Titulo" "Mensagem" Url', inline = False)
     help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
-    help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute on/off', inline = False)
-    help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro. Usando apenas .move você vê a posição dos canais.\nEx: .move "de canal(posição)" "para canal(posição)"', inline = False)
+    help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio "Titulo" "Mensagem" Url', inline = False)
     help.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero)', inline = False)
+    help.add_field(name = '.disc', value = 'Mostra o link do discord.\nEx: .disc', inline = False)
+    help.add_field(name = '.canais', value = 'Mostra a posição dos canais.\nEx: .canais', inline = False)
+    help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute "posição do canal" on/off', inline = False)
+    help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro.\nEx: .move "de canal(posição)" "para canal(posição)"', inline = False)
         
     return help
 
@@ -77,7 +79,7 @@ def muteoff(channel):
 def mover(ctx):
     msg_final = ''
     for channel in ctx.guild.voice_channels:
-        msg_final += f'\n{channel.position}° >>> {channel.name}'
+        msg_final += f'\n{channel.position}° | {channel.name}'
     embed = discord.Embed(
         title = f'\tCanais de Voz',
         description = f'{msg_final}',
@@ -105,6 +107,7 @@ def msgclear(n):
 
 
 
+
 #Mensagens e erros
 def possuicelula(nome):
     possuicelula = discord.Embed(
@@ -124,7 +127,7 @@ def mesmacelula(nome):
 
 def bemvindo(user):
     bemvindo = discord.Embed(
-        title = f"{user.name}, Bem-Vindo ao discord do Radical Teen. Selecione a sua célula",
+        title = f"{user.name}, Bem-Vindo(a) ao discord do Radical Teen! Selecione a sua célula",
         color = 0xFFFAFA
     )
     return bemvindo
@@ -154,5 +157,19 @@ def botreiniciando():
     embed = discord.Embed(
         title=f"O bot está reiniciando, espere um momento.",
         color = 0xFFFF00
+    )
+    return embed
+
+def discor():
+    embed = discord.Embed(
+        title = f"📢 Espalhe o discord para a galera! \nhttps://discord.gg/AR3mQbQ",
+        color = 0xFFFAFA
+    )
+    return embed
+
+def discor1():
+    embed = discord.Embed(
+        title = f"📢 Convide seus amigos para cá! \nhttps://discord.gg/AR3mQbQ",
+        color = 0xFFFAFA
     )
     return embed
