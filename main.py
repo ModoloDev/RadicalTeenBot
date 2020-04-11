@@ -115,7 +115,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("Radical Teen ✝"))
     rtchannel = bot.get_channel(678453889263075349)
 
-    await rtchannel.purge(limit = 100)
+    await rtchannel.purge(limit = None)
 
     await RoleCelulas(rtchannel)
     await AdmsRoles(rtchannel)
@@ -128,7 +128,7 @@ async def on_member_join(user):
     rtchannel = bot.get_channel(678453889263075349)
 
     if str(user.bot) == "False":
-        await rtchannel.purge(limit = 100)
+        await rtchannel.purge(limit = None)
 
         await user.add_roles(get(rtchannel.guild.roles, id=678463459385540618))
 
@@ -149,7 +149,7 @@ async def on_member_update(before, after):
     if after.id == botteste:
         if str(before.status) == "online" and str(after.status) == "offline":
             rtchannel = bot.get_channel(678453889263075349)
-            await rtchannel.purge(limit = 100)
+            await rtchannel.purge(limit = None)
             msg_temp = await rtchannel.send(embed = botreiniciando())
             await asyncio.sleep(5)
             await msg_temp.delete()
@@ -232,7 +232,7 @@ async def anuncio(ctx, titulo, mensagem, url):
         global avisoschannel
         avisoschannel = bot.get_channel(697951710764859392)
         msg_anuncio = avisoschannel.send
-        await msg_anuncio(get(rtchannel.guild.roles, id=678449533012803596))
+        await msg_anuncio(get(avisoschannel.guild.roles, id=678449533012803596))
         await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
     else:
         await ctx.send(embed = sempermissao())
@@ -244,7 +244,7 @@ async def r(ctx):
     x = await check(ctx, adms)
     if x != None:
         rtchannel = bot.get_channel(678453889263075349)
-        await rtchannel.purge(limit = 100)
+        await rtchannel.purge(limit = None)
         msg_temp = await rtchannel.send(embed = botreiniciando())
         await asyncio.sleep(5)
         await msg_temp.delete()
@@ -306,10 +306,18 @@ async def clear(ctx, n):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
     x = await check(ctx, adms)
     if x != None:
-        await ctx.channel.purge(limit = int(n) + 1)
-        msg_temp = await ctx.send(embed = msgclear(int(n)))
-        await asyncio.sleep(5)
-        await msg_temp.delete()
+        if n == "all":
+            msg = await ctx.channel.history(limit=None).flatten()
+            await ctx.channel.purge(limit=None)
+            msg_temp = await ctx.send(embed = msgclear(len(msg)))
+            await asyncio.sleep(5)
+            await msg_temp.delete()
+
+        else:
+            await ctx.channel.purge(limit = int(n) + 1)
+            msg_temp = await ctx.send(embed = msgclear(int(n)))
+            await asyncio.sleep(5)
+            await msg_temp.delete()
     else:
         await ctx.send(embed = sempermissao())
 
