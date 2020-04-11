@@ -45,12 +45,14 @@ def help():
     )
 
     help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
-    help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio "Titulo" "Mensagem" Url', inline = False)
-    help.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero)', inline = False)
+    help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio (posição do canal (.canaisdetexto)) "Titulo" "Mensagem" Url', inline = False)
+    help.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero ou all)', inline = False)
     help.add_field(name = '.disc', value = 'Mostra o link do discord.\nEx: .disc', inline = False)
-    help.add_field(name = '.canais', value = 'Mostra a posição dos canais.\nEx: .canais', inline = False)
-    help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute "posição do canal" on/off', inline = False)
-    help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro.\nEx: .move "de canal(posição)" "para canal(posição)"', inline = False)
+    help.add_field(name = '.canais', value = 'Mostra a posição dos canais de voz e de texto.\nEx: .canais', inline = False)
+    help.add_field(name = '.canaisdevoz', value = 'Mostra a posição dos canais de voz.\nEx: .canaisdevoz', inline = False)
+    help.add_field(name = '.canaisdetexto', value = 'Mostra a posição dos canais de texto.\nEx: .canaisdetexto', inline = False)
+    help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute (posição(.canaisdevoz)) on/off', inline = False)
+    help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro.\nEx: .move "de canal(posição(.canaisdevoz))" "para canal(posição(.canaisdevoz))"', inline = False)
         
     return help
 
@@ -76,12 +78,23 @@ def muteoff(channel):
     )
     return embed
 
-def mover(ctx):
+def canalvoz(ctx):
     msg_final = ''
     for channel in ctx.guild.voice_channels:
         msg_final += f'\n{channel.position}° | {channel.name}'
     embed = discord.Embed(
         title = f'\tCanais de Voz',
+        description = f'{msg_final}',
+        color = 0xFFFAFA
+    )
+    return embed
+
+def canaltexto(ctx):
+    msg_final = ''
+    for channel in ctx.guild.text_channels:
+        msg_final += f'\n{channel.position}° | {channel.name}'
+    embed = discord.Embed(
+        title = f'\tCanais de Texto',
         description = f'{msg_final}',
         color = 0xFFFAFA
     )
@@ -155,7 +168,7 @@ def usoincorreto():
 
 def botreiniciando():
     embed = discord.Embed(
-        title=f"O bot está reiniciando, espere um momento.",
+        title=f"O bot está reiniciando, aguarde um momento.",
         color = 0xFFFF00
     )
     return embed

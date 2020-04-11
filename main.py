@@ -1,8 +1,8 @@
 import discord
 import random
 import asyncio
-from time import strftime, localtime, time
-from datetime import datetime
+import datetime
+from time import strftime, localtime, time, gmtime, mktime
 from discord.utils import get
 from discord.ext import commands
 from utility import *
@@ -111,7 +111,7 @@ async def check(ctx, adms):
 
 @bot.event
 async def on_ready():
-    print(strftime("%A, %d/%m/%Y %H:%M:%S", localtime(time()-10800)),'\n Iniciando Bot...')
+    print('ONLINE ' + '(' + strftime("%d/%m/%Y - %H:%M:%S", localtime(mktime(gmtime())-10800)) + ')')
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("Radical Teen ✝"))
     rtchannel = bot.get_channel(678453889263075349)
 
@@ -142,19 +142,15 @@ async def on_member_join(user):
         await msg_temp2.delete()
 
 
-'''
+
 @bot.event
 async def on_member_update(before, after):
-    botteste = 688243571865682010
-    if after.id == botteste:
-        if str(before.status) == "online" and str(after.status) == "offline":
-            rtchannel = bot.get_channel(678453889263075349)
-            await rtchannel.purge(limit = None)
-            msg_temp = await rtchannel.send(embed = botreiniciando())
-            await asyncio.sleep(5)
-            await msg_temp.delete()
-            await codigo(rtchannel)
-'''
+    id = 612387547116470385
+    if after.id == id:
+        if str(after.status) == "online":
+            mid = bot.get_user(274297483696275457)
+            await mid.send("online")
+
 
 
 @bot.event
@@ -225,12 +221,12 @@ async def on_reaction_remove(reaction, user):
 
 #Comandos
 @bot.command(pass_context=True)
-async def anuncio(ctx, titulo, mensagem, url):
+async def anuncio(ctx, channel, titulo, mensagem, url):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
     x = await check(ctx, adms)
-    if x != None:  
-        global avisoschannel
-        avisoschannel = bot.get_channel(697951710764859392)
+    if x != None:
+        channel = discord.utils.find(lambda x: x.position == int(channel), ctx.guild.text_channels)
+        avisoschannel = bot.get_channel(channel.id)
         msg_anuncio = avisoschannel.send
         await msg_anuncio(get(avisoschannel.guild.roles, id=678449533012803596))
         await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
@@ -326,8 +322,17 @@ async def disc(ctx):
     await ctx.send(embed = discor())
 
 @bot.command(pass_context=True)
+async def canaisdevoz(ctx):
+    await ctx.send(embed = canalvoz(ctx))
+
+@bot.command(pass_context=True)
+async def canaisdetexto(ctx):
+    await ctx.send(embed = canaltexto(ctx))
+
+@bot.command(pass_context=True)
 async def canais(ctx):
-    await ctx.send(embed = mover(ctx))
+    await ctx.send(embed = canalvoz(ctx))
+    await ctx.send(embed = canaltexto(ctx))
 
 
 '''
@@ -347,7 +352,7 @@ async def comandos(ctx):
 
 
 #bot teste
-bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+#bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
 #bot normal
-#bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
