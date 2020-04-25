@@ -35,27 +35,28 @@ def escolhercelula():
     escolhercelula.add_field(name = "🧡 Ahava", value = ":six:", inline = True)
     '''escolhercelula.add_field(name = "Makarias", value = ":seven:", inline = True)'''
 
+    escolhercelula.set_footer(text = 'Qualquer dúvida digite .help')
     return escolhercelula
 
 #Comandos
-def help():
-    help = discord.Embed(
+def comandoshelp():
+    comandoshelp = discord.Embed(
         title = f"Comandos",
         color = 0xFFFAFA
     )
 
-    help.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
-    help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio (posição do canal (.canaisdetexto)) "Titulo" "Mensagem" Url', inline = False)
-    help.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero ou all)', inline = False)
-    help.add_field(name = '.disc', value = 'Mostra o link do discord.\nEx: .disc', inline = False)
-    help.add_field(name = '.canal', value = 'Mostra a posição do canal de voz atual.\nEx: .canal', inline = False)
-    help.add_field(name = '.canais', value = 'Mostra a posição dos canais de voz e de texto.\nEx: .canais', inline = False)
-    help.add_field(name = '.canaisdevoz', value = 'Mostra a posição dos canais de voz.\nEx: .canaisdevoz', inline = False)
-    help.add_field(name = '.canaisdetexto', value = 'Mostra a posição dos canais de texto.\nEx: .canaisdetexto', inline = False)
-    help.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute (posição(.canaisdevoz)) on/off', inline = False)
-    help.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro.\nEx: .move "de canal(posição(.canaisdevoz))" "para canal(posição(.canaisdevoz))"', inline = False)
+    comandoshelp.add_field(name = '.r', value = 'Aparece um novo bloco de escolher celula.\nEx: .r', inline = False)
+    comandoshelp.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio (posição do canal (.canaisdetexto)) "Titulo" "Mensagem" Url', inline = False)
+    comandoshelp.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero ou all)', inline = False)
+    comandoshelp.add_field(name = '.disc', value = 'Mostra o link do discord.\nEx: .disc', inline = False)
+    comandoshelp.add_field(name = '.canal', value = 'Mostra a posição do canal de voz atual.\nEx: .canal', inline = False)
+    comandoshelp.add_field(name = '.canais', value = 'Mostra a posição dos canais de voz e de texto.\nEx: .canais', inline = False)
+    comandoshelp.add_field(name = '.canaisdevoz', value = 'Mostra a posição dos canais de voz.\nEx: .canaisdevoz', inline = False)
+    comandoshelp.add_field(name = '.canaisdetexto', value = 'Mostra a posição dos canais de texto.\nEx: .canaisdetexto', inline = False)
+    comandoshelp.add_field(name = '.mute', value = 'Silencia ou "diselencia" o canal de voz inteiro em que você está.\nEx: .mute (posição(.canaisdevoz)) on/off', inline = False)
+    comandoshelp.add_field(name = '.move', value = 'Move usuários de um canal de voz para outro.\nEx: .move "de canal(posição(.canaisdevoz))" "para canal(posição(.canaisdevoz))"', inline = False)
         
-    return help
+    return comandoshelp
 
 def anuncioembed(titulo, mensagem, url):
     anuncio = discord.Embed(
@@ -129,6 +130,13 @@ def msgclear(n):
             title = f"🧹 {n} mensagens foram apagadas.",
             color = 0xFFFAFA
         )
+    return embed
+
+def helpembed(ctx):
+    embed = discord.Embed(
+        title = f'{ctx.author} precisa da sua ajuda, fale com ele.',
+        color = 0xFFFAFA
+    )
     return embed
 
 

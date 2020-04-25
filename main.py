@@ -8,9 +8,9 @@ from discord.utils import get
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 from utility import *
-with open('settings.yaml', 'r') as f: data = yaml.load(f, Loader= yaml.FullLoader)
+with open('settings/settings.yaml', 'r') as f: data = yaml.load(f, Loader= yaml.FullLoader)
 
-bot = commands.Bot(command_prefix = data['PREFIX'] )
+bot = commands.Bot(command_prefix = data['PREFIX'], help_command= None)
 testechannel = bot.get_channel(686763964256092164)
 rtchannel = bot.get_channel(678453889263075349)
 
@@ -362,8 +362,14 @@ async def teste(ctx):
         print("nao é adm")
 '''
 
+
+@bot.command(pass_context=True)
+async def help(ctx):
+    myid = bot.get_user(274297483696275457)
+    await myid.send(embed = helpembed(ctx))
+
 @bot.command(pass_context=True)
 async def comandos(ctx):
-    await ctx.send(embed = help())
+    await ctx.send(embed = comandoshelp())
 
-bot.run(data['TOKEN'] )
+bot.run(data['TOKEN'])
