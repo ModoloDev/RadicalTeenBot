@@ -48,6 +48,7 @@ def help():
     help.add_field(name = '.anuncio', value = 'Faz anúncios com o bot.\nEx: .anuncio (posição do canal (.canaisdetexto)) "Titulo" "Mensagem" Url', inline = False)
     help.add_field(name = '.clear', value = 'Apaga a quantidade de mensagens que você deseja.\nEx: .clear (numero ou all)', inline = False)
     help.add_field(name = '.disc', value = 'Mostra o link do discord.\nEx: .disc', inline = False)
+    help.add_field(name = '.canal', value = 'Mostra a posição do canal de voz atual.\nEx: .canal', inline = False)
     help.add_field(name = '.canais', value = 'Mostra a posição dos canais de voz e de texto.\nEx: .canais', inline = False)
     help.add_field(name = '.canaisdevoz', value = 'Mostra a posição dos canais de voz.\nEx: .canaisdevoz', inline = False)
     help.add_field(name = '.canaisdetexto', value = 'Mostra a posição dos canais de texto.\nEx: .canaisdetexto', inline = False)
@@ -95,6 +96,18 @@ def canaltexto(ctx):
         msg_final += f'\n{channel.position}° | {channel.name}'
     embed = discord.Embed(
         title = f'\tCanais de Texto',
+        description = f'{msg_final}',
+        color = 0xFFFAFA
+    )
+    return embed
+
+def canalatual(ctx):
+    msg_final = ''
+    for channel in ctx.guild.voice_channels:
+        if ctx.author.voice.channel == channel:
+            msg_final += f'\n{channel.position}° | {channel.name}'
+    embed = discord.Embed(
+        title = f'\tCanal de Voz Atual',
         description = f'{msg_final}',
         color = 0xFFFAFA
     )
@@ -185,4 +198,13 @@ def discor1():
         title = f"📢 Convide seus amigos para cá! \nhttps://discord.gg/AR3mQbQ",
         color = 0xFFFAFA
     )
+    return embed
+
+def errorcomando():
+    embed = discord.Embed(
+        title = f"Esse comando não existe.",
+        color = 0xFF0000
+    )
+
+    embed.add_field(name = '.comandos', value = 'Para mais comandos', inline = False)
     return embed

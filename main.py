@@ -5,6 +5,7 @@ import datetime
 from time import strftime, localtime, time, gmtime, mktime
 from discord.utils import get
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound
 from utility import *
 
 bot = commands.Bot(command_prefix = '.')
@@ -80,7 +81,7 @@ def Roles(reaction, user):
 
     return Role
 
-async def codigo(rtchannel):
+async def codcelula(rtchannel):
 
 
     global msg_bot
@@ -119,9 +120,12 @@ async def on_ready():
 
     await RoleCelulas(rtchannel)
     await AdmsRoles(rtchannel)
-    await codigo(rtchannel)
+    await codcelula(rtchannel)
 
-
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, CommandNotFound):
+        await ctx.send(embed = errorcomando())
 
 @bot.event
 async def on_member_join(user):
@@ -135,7 +139,7 @@ async def on_member_join(user):
         msg_temp = await rtchannel.send(f'<@!{user.id}>')
         msg_temp2 = await rtchannel.send(embed = bemvindo(user))
 
-        await codigo(rtchannel)
+        await codcelula(rtchannel)
 
         await asyncio.sleep(30)
         await msg_temp.delete()
@@ -244,7 +248,7 @@ async def r(ctx):
         msg_temp = await rtchannel.send(embed = botreiniciando())
         await asyncio.sleep(5)
         await msg_temp.delete()
-        await codigo(rtchannel)
+        await codcelula(rtchannel)
     else:
         await ctx.send(embed = sempermissao())
 
@@ -253,25 +257,24 @@ async def mute(ctx, channel, onoff=None):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
     x = await check(ctx, adms)
     if x != None:
-        channel = discord.utils.find(lambda x: x.position == int(channel), ctx.guild.voice_channels)
-        voicechannel = bot.get_channel(channel.id)
-        if onoff == "on":
+        if channel == "on" or channel == "off": 
+            voicechannel = bot.get_channel(ctx.author.voice.channel.id)
+        else:
+            channel = discord.utils.find(lambda x: x.position == int(channel), ctx.guild.voice_channels)
+            voicechannel = bot.get_channel(channel.id)
+        if onoff == "on" or channel == "on":
             for user in voicechannel.members:
-                verif = True
+                verif = False
                 for i in range(len(user.roles)):
                     if user.roles[i].id in adms:
-                        verif = False
-                if verif:
-                    await user.edit(mute=True)  
-            msg_temp = await ctx.send(embed = muteon(voicechannel))
-            await asyncio.sleep(5)
-            await msg_temp.delete()  
-        elif onoff == "off":
+                        verif = True
+                if verif == False:
+                    await user.edit(mute=True)
+            await ctx.send(embed = muteon(voicechannel))
+        elif onoff == "off" or channel == "off":
             for user in voicechannel.members:
                 await user.edit(mute=False) 
-            msg_temp = await ctx.send(embed = muteoff(voicechannel))
-            await asyncio.sleep(5)
-            await msg_temp.delete()
+            await ctx.send(embed = muteoff(voicechannel))
         else:
             await ctx.send(embed = usoincorreto())
     else:
@@ -282,8 +285,15 @@ async def move(ctx, de=None, para=None):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
     x = await check(ctx, adms)
     if x != None:
-        if de == None or para == None:
+        if de == None and para == None:
             await ctx.send(embed = usoincorreto())
+        elif para == None:
+            channel = bot.get_channel(ctx.author.voice.channel.id)
+            channelde = discord.utils.find(lambda x: x.position == int(de), ctx.guild.voice_channels)
+            channelgetde = bot.get_channel(channelde.id)
+
+            for user in channel.members:
+                await user.edit(voice_channel=channelgetde)
         else:
             channelde = discord.utils.find(lambda x: x.position == int(de), ctx.guild.voice_channels)
             channelgetde = bot.get_channel(channelde.id)
@@ -334,6 +344,10 @@ async def canais(ctx):
     await ctx.send(embed = canalvoz(ctx))
     await ctx.send(embed = canaltexto(ctx))
 
+@bot.command(pass_context=True)
+async def canal(ctx):
+    await ctx.send(embed = canalatual(ctx))
+
 
 '''
 @bot.command(pass_context=True)
@@ -352,7 +366,7 @@ async def comandos(ctx):
 
 
 #bot teste
-#bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
+bot.run('Njg4MjQzNTcxODY1NjgyMDEw.Xmxgqw.XhjuH_MD00rNAJf9ZTjKuqSlzcs')
 
 #bot normal
-bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
+#bot.run('Njg2NzU0NTU5NTMxNDE3NjEx.XmcVXQ.JlCDQUiBkgFVw8-hqmMELI4IoRw')
