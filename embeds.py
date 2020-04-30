@@ -35,7 +35,7 @@ def escolhercelula():
     escolhercelula.add_field(name = "🧡 Ahava", value = ":six:", inline = True)
     '''escolhercelula.add_field(name = "Makarias", value = ":seven:", inline = True)'''
 
-    escolhercelula.set_footer(text = 'Qualquer dúvida digite .help')
+    escolhercelula.set_footer(text = 'Qualquer dúvida digite .help "mensagem"')
     return escolhercelula
 
 #Comandos
@@ -132,13 +132,64 @@ def msgclear(n):
         )
     return embed
 
-def helpembed(ctx):
+def helpembed(ctx, msg):
     embed = discord.Embed(
-        title = f'{ctx.author} precisa da sua ajuda, fale com ele.',
+        title = f'{ctx.author} abriu um pedido de ajuda com a seguinte mensagem:',
+        description = f'{msg}.',
         color = 0xFFFAFA
     )
+    embed.add_field(name = 'Atenção', value = 'Se você conseguir resolver, clique no emoji ✅. Se não clique no ❌.', inline = False)
     return embed
 
+def loghelp(ctx):
+    embed = discord.Embed(
+        title = f"{ctx.author} abriu um pedido de ajuda.",
+        color = 0xFF0000
+    )
+
+    return embed
+
+def msghelp(ctx):
+    embed = discord.Embed(
+        title = f"{ctx.author.name}, seu pedido de ajuda foi registrado. Em breve reu problema será resolvido. Você será avisado.",
+        color = 0xFF0000
+    )
+
+    return embed
+
+def resolvidomsg(ctx):
+    embed = discord.Embed(
+        title = f"{ctx.author.name}, seu problema foi resolvido.",
+        color = 0x008000
+    )
+
+    return embed
+
+def nresolvidomsg(ctx):
+    embed = discord.Embed(
+        title = f"O pedido de ajuda de {ctx.author.name} não foi resolvido.",
+        color = 0xFF0000
+    )
+
+    return embed
+
+def resolvido(ctx, msg):
+    embed = discord.Embed(
+        title = f'Pedido de {ctx.author} foi resolvido!',
+        description = f'{msg}.',
+        color = 0x008000
+    )
+    embed.set_image(url = 'https://www.easyvest.com.br/wp-content/uploads/2013/08/dwcheckyes.png')
+    return embed
+
+def nresolvido(ctx, msg):
+    embed = discord.Embed(
+        title = f'Pedido de {ctx.author} não resolvido! Caso enviado para Módolo',
+        description = f'{msg}.',
+        color = 0x008000
+    )
+    embed.set_image(url = 'https://pngimage.net/wp-content/uploads/2018/06/x-png-4.png')
+    return embed
 
 
 
@@ -173,12 +224,12 @@ def sempermissao():
     )
     return embed
 
-def zoom(user):
-    embed = discord.Embed(
-        title = f"Na Na Ni Na Não, {user}!\nEspalhe o discord para a galera:\nhttps://discord.gg/AR3mQbQ",
-        color = 0xFF0000
-    )
-    return embed
+# def zoom(user):
+#     embed = discord.Embed(
+#         title = f"Na Na Ni Na Não, {user}!\nEspalhe o discord para a galera:\nhttps://discord.gg/AR3mQbQ",
+#         color = 0xFF0000
+#     )
+#     return embed
 
 def usoincorreto():
     embed = discord.Embed(

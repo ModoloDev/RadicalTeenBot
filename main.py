@@ -7,7 +7,7 @@ from time import strftime, localtime, time, gmtime, mktime
 from discord.utils import get
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
-from utility import *
+from embeds import *
 with open('settings/settings.yaml', 'r') as f: data = yaml.load(f, Loader= yaml.FullLoader)
 
 bot = commands.Bot(command_prefix = data['PREFIX'], help_command= None)
@@ -161,14 +161,22 @@ async def on_member_update(before, after):
 
 @bot.event
 async def on_message(message):
+    rtchannel = bot.get_channel(678453889263075349)
+    if message.channel == rtchannel:
+        botradical = bot.get_user(686754559531417611)
+        botradicalteste = bot.get_user(688243571865682010)
+        if message.author.id != botradical.id and message.author.id != botradicalteste.id:
+            await message.delete()
+        
+
     message_content = message.content.strip().lower()
-    if "zoom" in message_content:
-        user = message.author.name
-        channel = bot.get_channel(message.channel.id)
-        await message.delete()
-        msg_temp = await channel.send(embed = zoom(user))
-        await asyncio.sleep(15)
-        await msg_temp.delete() 
+    # if "zoom" in message_content:
+    #     user = message.author.name
+    #     channel = bot.get_channel(message.channel.id)
+    #     await message.delete()
+    #     msg_temp = await channel.send(embed = zoom(user))
+    #     await asyncio.sleep(15)
+    #     await msg_temp.delete() 
 
     if "discord" in message_content:
         channel = bot.get_channel(message.channel.id)
@@ -241,7 +249,7 @@ async def anuncio(ctx, channel, titulo, mensagem, url):
 
 
 @bot.command(pass_context=True)
-async def r(ctx):
+async def rt(ctx):
     adms = await Adm(LideresRole, ADMSRole, PastoresRole)
     x = await check(ctx, adms)
     if x != None:
@@ -350,23 +358,41 @@ async def canais(ctx):
 async def canal(ctx):
     await ctx.send(embed = canalatual(ctx))
 
-
-'''
 @bot.command(pass_context=True)
-async def teste(ctx):
-    adms = await Adm(LideresRole, ADMSRole, PastoresRole)
-    x = check(ctx, adms)
-    if x != None:
-        print("adm")
-    else:
-        print("nao é adm")
-'''
+async def help(ctx, *, msg):
+    msg_log = logchannel.send
+    ajudachanel = bot.get_channel(704739002649149652)
+    
+    msg_help = await ajudachanel.send(embed = helpembed(ctx, msg))
+    await msg_log(embed = loghelp(ctx))
+    print("Pedido de ajuda de", ctx.author, "mensagem:", msg)
 
+    msg_temp = await ctx.send(embed = msghelp(ctx))
 
-@bot.command(pass_context=True)
-async def help(ctx):
-    myid = bot.get_user(274297483696275457)
-    await myid.send(embed = helpembed(ctx))
+    await msg_help.add_reaction("✅")
+    await msg_help.add_reaction("❌")
+
+    await asyncio.sleep(10)
+    await msg_temp.delete()
+
+    @bot.event
+    async def on_reaction_add(reaction, user):
+        if msg_help.id == reaction.message.id and user.name != msg_help.author.name:
+            me = discord.utils.find(lambda x: x.id == 274297483696275457, ctx.guild.members)
+            if reaction.emoji == "✅":
+                await ctx.author.send(embed = resolvidomsg(ctx))
+                await msg_help.edit(embed = resolvido(ctx, msg))
+                await msg_help.remove_reaction(reaction.emoji, msg_help.author)
+                await msg_help.remove_reaction(reaction.emoji, user)
+
+            elif reaction.emoji == "❌":
+                await me.send(embed = nresolvidomsg(ctx))
+                await msg_help.remove_reaction(reaction.emoji, user)
+                await msg_help.remove_reaction(reaction.emoji, msg_help.author)
+                await msg_help.edit(embed = nresolvido(ctx, msg))
+                await msg_help.add_reaction("✅")
+                
+
 
 @bot.command(pass_context=True)
 async def comandos(ctx):
