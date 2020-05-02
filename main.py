@@ -193,43 +193,49 @@ async def on_message(message):
 async def on_reaction_add(reaction, user):
     rtchannel = bot.get_channel(678453889263075349)
     if msg_bot.id == reaction.message.id and user.name != msg_bot.author.name:
+        if reaction.emoji == "0️⃣" or reaction.emoji == "1️⃣" or reaction.emoji == "2️⃣" or reaction.emoji == "3️⃣" or reaction.emoji == "4️⃣" or reaction.emoji == "5️⃣" or reaction.emoji == "6️⃣":
+            Role = Roles(reaction, user)
+            celula = await Celula(EkklesiaRole, JudahRole, MaanaimRole, AhavaRole, EliteRole, TeknongramosRole, HovhanessRole, MakariasRole)
 
-        Role = Roles(reaction, user)
-        celula = await Celula(EkklesiaRole, JudahRole, MaanaimRole, AhavaRole, EliteRole, TeknongramosRole, HovhanessRole, MakariasRole)
-
-        x = discord.utils.find(lambda x: x.id in celula, user.roles)
-        if x == None:
-            await user.add_roles(Role)
-            await msg_log(embed = logentrou(user.name, Role.name))
-            msg_temp = await rtchannel.send(embed = logentrou(user.name, Role.name))
-            await asyncio.sleep(5)
-            await msg_temp.delete()        
-        else:
-            x = discord.utils.find(lambda x: x.id == Role.id, user.roles)
-            if x != None:
-                msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
+            x = discord.utils.find(lambda x: x.id in celula, user.roles)
+            if x == None:
+                await user.add_roles(Role)
+                await msg_log(embed = logentrou(user.name, Role.name))
+                msg_temp = await rtchannel.send(embed = logentrou(user.name, Role.name))
                 await asyncio.sleep(5)
-                await msg_temp.delete()
+                await msg_temp.delete()        
             else:
-                msg_temp = await rtchannel.send(embed = possuicelula(user.name))
-                await asyncio.sleep(5)
-                await msg_temp.delete()
+                x = discord.utils.find(lambda x: x.id == Role.id, user.roles)
+                if x != None:
+                    msg_temp = await rtchannel.send(embed = mesmacelula(user.name))
+                    await asyncio.sleep(5)
+                    await msg_temp.delete()
+                else:
+                    msg_temp = await rtchannel.send(embed = possuicelula(user.name))
+                    await asyncio.sleep(5)
+                    await msg_temp.delete()
+        else:
+            await msg_bot.remove_reaction(reaction, user)
+
+    def reactionmsg():
+        return reaction, user
 
 
 @bot.event
 async def on_reaction_remove(reaction, user):
     rtchannel = bot.get_channel(678453889263075349)
     if msg_bot.id == reaction.message.id:
-        Role = Roles(reaction, user)
-        
+        if reaction.emoji == "0️⃣" or reaction.emoji == "1️⃣" or reaction.emoji == "2️⃣" or reaction.emoji == "3️⃣" or reaction.emoji == "4️⃣" or reaction.emoji == "5️⃣" or reaction.emoji == "6️⃣":
+            Role = Roles(reaction, user)
+            
 
-        x = discord.utils.find(lambda x: x.id == Role.id, user.roles)
-        if x != None:
-            await user.remove_roles(Role)  
-            await msg_log(embed = logsaiu(user.name, Role.name))
-            msg_temp = await rtchannel.send(embed = logsaiu(user.name, Role.name))
-            await asyncio.sleep(5)
-            await msg_temp.delete()
+            x = discord.utils.find(lambda x: x.id == Role.id, user.roles)
+            if x != None:
+                await user.remove_roles(Role)  
+                await msg_log(embed = logsaiu(user.name, Role.name))
+                msg_temp = await rtchannel.send(embed = logsaiu(user.name, Role.name))
+                await asyncio.sleep(5)
+                await msg_temp.delete()
     
 
 
@@ -375,22 +381,21 @@ async def help(ctx, *, msg):
     await asyncio.sleep(10)
     await msg_temp.delete()
 
-    # @bot.event
-    # async def on_reaction_add(reaction, user):
-    #     if msg_help.id == reaction.message.id and user.name != msg_help.author.name:
-    #         me = discord.utils.find(lambda x: x.id == 274297483696275457, ctx.guild.members)
-    #         if reaction.emoji == "✅":
-    #             await ctx.author.send(embed = resolvidomsg(ctx))
-    #             await msg_help.edit(embed = resolvido(ctx, msg))
-    #             await msg_help.remove_reaction(reaction.emoji, msg_help.author)
-    #             await msg_help.remove_reaction(reaction.emoji, user)
+    reactionmsg()
+    me = discord.utils.find(lambda x: x.id == 274297483696275457, msg_help.ctx.guild.members)
+    if reaction.emoji == "✅":
+        await msg_help.ctx.author.send(embed = resolvidomsg(msg_help.ctx))
+        await msg_help.edit(embed = resolvido(msg_help.ctx, msg))
+        await msg_help.remove_reaction(reaction.emoji, msg_help.author)
+        await msg_help.remove_reaction(reaction.emoji, user)
 
-    #         elif reaction.emoji == "❌":
-    #             await me.send(embed = nresolvidomsg(ctx))
-    #             await msg_help.remove_reaction(reaction.emoji, user)
-    #             await msg_help.remove_reaction(reaction.emoji, msg_help.author)
-    #             await msg_help.edit(embed = nresolvido(ctx, msg))
-    #             await msg_help.add_reaction("✅")
+    elif reaction.emoji == "❌":
+        await me.send(embed = nresolvidomsg(msg_help.ctx))
+        await msg_help.remove_reaction(reaction.emoji, user)
+        await msg_help.remove_reaction(reaction.emoji, msg_help.author)
+        await msg_help.edit(embed = nresolvido(msg_help.ctx, msg))
+        await msg_help.add_reaction("✅")
+
                 
 
 
