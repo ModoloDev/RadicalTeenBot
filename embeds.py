@@ -151,7 +151,7 @@ def loghelp(ctx):
 
 def msghelp(ctx):
     embed = discord.Embed(
-        title = f"{ctx.author.name}, seu pedido de ajuda foi registrado. Em breve reu problema será resolvido. Você será avisado.",
+        title = f"{ctx.author.name}, seu pedido de ajuda foi registrado. Em breve seu problema será resolvido. Você será avisado.",
         color = 0xFF0000
     )
 

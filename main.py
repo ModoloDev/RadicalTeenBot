@@ -375,22 +375,22 @@ async def help(ctx, *, msg):
     await asyncio.sleep(10)
     await msg_temp.delete()
 
-    @bot.event
-    async def on_reaction_add(reaction, user):
-        if msg_help.id == reaction.message.id and user.name != msg_help.author.name:
-            me = discord.utils.find(lambda x: x.id == 274297483696275457, ctx.guild.members)
-            if reaction.emoji == "✅":
-                await ctx.author.send(embed = resolvidomsg(ctx))
-                await msg_help.edit(embed = resolvido(ctx, msg))
-                await msg_help.remove_reaction(reaction.emoji, msg_help.author)
-                await msg_help.remove_reaction(reaction.emoji, user)
+    # @bot.event
+    # async def on_reaction_add(reaction, user):
+    #     if msg_help.id == reaction.message.id and user.name != msg_help.author.name:
+    #         me = discord.utils.find(lambda x: x.id == 274297483696275457, ctx.guild.members)
+    #         if reaction.emoji == "✅":
+    #             await ctx.author.send(embed = resolvidomsg(ctx))
+    #             await msg_help.edit(embed = resolvido(ctx, msg))
+    #             await msg_help.remove_reaction(reaction.emoji, msg_help.author)
+    #             await msg_help.remove_reaction(reaction.emoji, user)
 
-            elif reaction.emoji == "❌":
-                await me.send(embed = nresolvidomsg(ctx))
-                await msg_help.remove_reaction(reaction.emoji, user)
-                await msg_help.remove_reaction(reaction.emoji, msg_help.author)
-                await msg_help.edit(embed = nresolvido(ctx, msg))
-                await msg_help.add_reaction("✅")
+    #         elif reaction.emoji == "❌":
+    #             await me.send(embed = nresolvidomsg(ctx))
+    #             await msg_help.remove_reaction(reaction.emoji, user)
+    #             await msg_help.remove_reaction(reaction.emoji, msg_help.author)
+    #             await msg_help.edit(embed = nresolvido(ctx, msg))
+    #             await msg_help.add_reaction("✅")
                 
 
 
