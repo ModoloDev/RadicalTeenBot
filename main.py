@@ -150,16 +150,6 @@ async def on_member_join(user):
 
 
 @bot.event
-async def on_member_update(before, after):
-    id = 612387547116470385
-    if after.id == id:
-        if str(after.status) == "online":
-            mid = bot.get_user(274297483696275457)
-            await mid.send("online")
-
-
-
-@bot.event
 async def on_message(message):
     rtchannel = bot.get_channel(678453889263075349)
     if message.channel == rtchannel:
@@ -396,7 +386,18 @@ async def help(ctx, *, msg):
         await msg_help.edit(embed = nresolvido(msg_help.ctx, msg))
         await msg_help.add_reaction("✅")
 
-                
+@bot.command(pass_context=True)
+async def privado(ctx, titulo, mensagem, url):
+    adms = await Adm(LideresRole, ADMSRole, PastoresRole)
+    x = await check(ctx, adms)
+    if x != None:
+        for guild in bot.guilds:
+            for member in guild.members:
+                user = bot.get_user(member.id)
+                msg_anuncio = user.send
+                await msg_anuncio(embed = anuncioembed(titulo, mensagem, url))
+    else:
+        await ctx.send(embed = sempermissao())                
 
 
 @bot.command(pass_context=True)
