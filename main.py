@@ -8,7 +8,7 @@ from discord.utils import get
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 from embeds import *
-with open('settings/settings.yaml', 'r') as f: data = yaml.load(f, Loader= yaml.FullLoader)
+with open('./settings/settings.yaml', 'r') as f: data = yaml.load(f, Loader= yaml.FullLoader)
 
 bot = commands.Bot(command_prefix = data['PREFIX'], help_command= None)
 testechannel = bot.get_channel(686763964256092164)
